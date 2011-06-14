@@ -1,6 +1,6 @@
 
 
-var twitterView = (function() {
+var uiTwitter = (function() {
   
   var API = { }; 
   
@@ -320,8 +320,8 @@ var twitterView = (function() {
   };//end factoryWindow
   
   return API;
-})(); //end tableView
-Ti.UI.currentWindow.add( twitterView.factoryView({}) ); 
-//twitterView.factoryWindow({}).addChild( twitterView.factoryView({}) ).open({modal:true}); 
+})(); //end uiTwitter
+//Ti.UI.currentWindow.add( uiTwitter.factoryView({}) ); 
+//uiTwitter.factoryWindow({}).addChild( uiTwitter.factoryView({}) ).open({modal:true}); 
   
 

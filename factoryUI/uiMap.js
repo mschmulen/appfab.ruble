@@ -1,13 +1,7 @@
 
-
-var mapView = (function() {
+var uiMap = (function() {
   
   var API = { }; 
-  
-  var myPrivateVar ='private'; 
-  function myPrivateFunction(){  };
-   
-  API.myPublicVar = 'hello' 
   
   API.factoryView = function(opts){ 
     var topView = Ti.UI.createView({});
@@ -300,14 +294,14 @@ var mapView = (function() {
 			var clicksource = evt.clicksource;
 			Ti.API.info('apple annotation click clicksource = ' + clicksource);
 		});
-
+		
      return win; 
-  };
+  }; //end factoryWindow
   
   return API;
-})(); //end mapView  
-Ti.UI.currentWindow.add( mapView.factoryView({}) ); 
-//mapView.factoryWindow({}).addChild( mapView.factoryView({}) ).open({modal:true}); 
+})(); //end uiMap
+//Ti.UI.currentWindow.add( uiMap.factoryView({}) ); 
+//uiMap.factoryWindow({}).addChild( uiMap.factoryView({}) ).open({modal:true}); 
   
  
 

@@ -1,6 +1,5 @@
-//Gist
 
-var chessGame = (function() {
+var uiChess = (function() {
   	
   	var API = { }; 
     
@@ -29,7 +28,7 @@ var chessGame = (function() {
 		while(++O>98?O=20:e-O);return y^=8,G--,N+M*M&&N>-K+1924|d?N:0;}B=i=y=u=0;while(B++<
 		120)I[B-1]=B%x?B/x%x<2|B%x<2?7:B/x&4?0:l[i++]|16:7;
 		
-		var topView = Ti.UI.createView({layout:'horizontal' });
+		var topView = Ti.UI.createView({layout:'horizontal', width: 320, height:480 });
 		//var win = Ti.UI.createWindow({layout:'horizontal', title:'chess'});
 		var arry = [];
 		var view = function(e){
@@ -88,7 +87,7 @@ var chessGame = (function() {
 	}//end factoryWindow
 	
   return API;
-})(); //end chessGame
-Ti.UI.currentWindow.add( chessGame.factoryView({}) );
-//chessGame.factoryWindow({}).addChild( chessGame.factoryView({}) ).open({modal:true});
+})(); //end uiChess
+//Ti.UI.currentWindow.add( uiChess.factoryView({}) );
+//uiChess.factoryWindow({}).addChild( uiChess.factoryView({}) ).open({modal:true});
 

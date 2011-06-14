@@ -1,5 +1,5 @@
 
-var splashView = (function() {
+var uiSplash = (function() {
   
   var API = { }; 
   
@@ -17,15 +17,15 @@ var splashView = (function() {
     return topView; 
   };
   
-  API.factoryWindow = function(options){ 
+  API.factoryWindow = function(options){
      var win = Ti.UI.createWindow({title:'Splash'}); 
      win.add( API.factoryView( options ) ); 
      return win; 
   };
   
   return API;
-})(); //end tableView
-Ti.UI.currentWindow.add( splashView.factoryView({}) ); 
-//tableView.factoryWindow({}).addChild( splashView.factoryView({}) ).open({modal:true}); 
+})(); //end uiSplash
+//Ti.UI.currentWindow.add( uiSplash.factoryView({}) ); 
+//uiSplash.factoryWindow({}).addChild( uiSplash.factoryView({}) ).open({modal:true}); 
   
 

@@ -54,7 +54,7 @@ end
 # COMMAND+3 WindowFactories 
 # ********************************************************
 
-command 'Chess' do |cmd|
+command 'uiChess' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"
@@ -66,12 +66,12 @@ command 'Chess' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryWindow/chess.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiChess.js")
     input << "\n"
   end
 end
 
-command 'BouncingBall' do |cmd|
+command 'uiBilliards' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"
@@ -83,12 +83,12 @@ command 'BouncingBall' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryWindow/bouncingBalls.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiBilliards.js")
     input << "\n"
   end
 end
 
-command 'TableView' do |cmd|
+command 'uiTable' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"
@@ -100,12 +100,12 @@ command 'TableView' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryWindow/tableView.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTable.js")
     input << "\n"
   end
 end
 
-command 'MapView' do |cmd|
+command 'uiMap' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"
@@ -117,14 +117,12 @@ command 'MapView' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryWindow/map.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiMap.js")
     input << "\n"
   end
 end
 
-
-
-command 'Twitter' do |cmd|
+command 'uiSplash' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"
@@ -136,14 +134,51 @@ command 'Twitter' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryWindow/twitter.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiSplash.js")
     input << "\n"
   end
 end
+
+
+command 'uiTwitter' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTwitter.js")
+    input << "\n"
+  end
+end
+
+
+command 'uiTemplate' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTemplate.js")
+    input << "\n"
+  end
+end
+
 
 
 #newWindow
-command 'new Win+ new Tab' do |cmd|
+command 'Win + Tab' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"

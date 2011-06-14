@@ -1,6 +1,6 @@
 
 
-var tableView = (function() {
+var uiTable = (function() {
   
   var API = { }; 
   
@@ -49,8 +49,8 @@ var tableView = (function() {
   };
   
   return API;
-})(); //end tableView  
-Ti.UI.currentWindow.add( tableView.factoryView({}) ); 
-//tableView.factoryWindow({}).addChild( tableView.factoryView({}) ).open({modal:true}); 
+})(); //end uiTable  
+//Ti.UI.currentWindow.add( uiTable.factoryView({}) ); 
+//uiTable.factoryWindow({}).addChild( uiTable.factoryView({}) ).open({modal:true}); 
   
 

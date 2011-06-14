@@ -1,10 +1,8 @@
 
-//https://gist.github.com/fabbc95c8367a327539c
-
-var bouncingBall = (function() {
+var uiBilliards = (function() {
   	
   	var API = { };
-
+	
   	API.factoryView= function(opts)
   	{
   		var topView = Ti.UI.createView({ backgroundColor:'blue'} );
@@ -65,8 +63,7 @@ var bouncingBall = (function() {
   	};///end factoryWindow
   
   return API;
-})(); //end bouncingBall
-
-Ti.UI.currentWindow.add( bouncingBall.factoryView({}) );
-//bouncingBall.factoryWindow({}).addChild( bouncingBall.factoryViewl({}) ).open({modal:true});
+})(); //end uiBilliards
+//Ti.UI.currentWindow.add( uiBilliards.factoryView({}) );
+//uiBilliards.factoryWindow({}).addChild( uiBilliards.factoryViewl({}) ).open({modal:true});
 
