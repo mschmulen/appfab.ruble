@@ -5,15 +5,7 @@ var uiBilliards = (function() {
 	
   	API.factoryView= function(opts)
   	{
-  		var topView = Ti.UI.createView({ backgroundColor:'blue'} );
-  		
-  		var button = Ti.UI.createButton({ text:'hello', bottom:30, height:30, width:300 });
-		topView.add(button );
-		
-		var label = Ti.UI.createLabel({ text:' ', top:30, height:30, width:300 });
-		//topView.add( label );
-		
-		button.addEventListener('click', function(e){ label.text = 'yack'; });
+  		var topView = Ti.UI.createView({ backgroundColor:'blue', height:480, width:320} );
 		
 		var arena = Ti.UI.createView({ top:10, width:320, height:320, backgroundColor: 'red' });
 		topView.add( arena );
@@ -33,8 +25,8 @@ var uiBilliards = (function() {
 		}//end buildBalls
 		
 		function update(){
-			Ti.API.info('update');
-		
+			//Ti.API.info('update');
+			
 			for( var i = 0; i< balls.length; i ++ ) { 
 				//wall collision
 				if ( balls[i].left < 4 || balls[i].left  > 200){ balls[i].vx = balls[i].vx * -1;  }
@@ -57,7 +49,7 @@ var uiBilliards = (function() {
   	{
   		var win = Ti.UI.createWindow({ exitOnClose: true, backgroundColor:'#336699', title: 'Main Window', navBarHidden: false });
 		
-		wi.addChild( API.factoryViewBouncingBall({}) );
+		wi.addChild( API.factoryView({}) );
 		
 		return win;
   	};///end factoryWindow
@@ -65,5 +57,6 @@ var uiBilliards = (function() {
   return API;
 })(); //end uiBilliards
 //Ti.UI.currentWindow.add( uiBilliards.factoryView({}) );
-//uiBilliards.factoryWindow({}).addChild( uiBilliards.factoryViewl({}) ).open({modal:true});
+//uiBilliards.factoryWindow({}).addChild( uiBilliards.factoryView({}) ).open({modal:true});
+
 

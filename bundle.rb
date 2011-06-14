@@ -54,39 +54,6 @@ end
 # COMMAND+3 WindowFactories 
 # ********************************************************
 
-command 'uiChess' do |cmd|
-  #cmd.scope = '*.js'
-  cmd.key_binding = "Control+3"
-  cmd.key_binding.mac = "Command+3"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
-  
-  cmd.output = :insert_as_snippet
-  cmd.input = :selection, :line
-  cmd.invoke do |context|
-    
-    input = STDIN.read
-    input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiChess.js")
-    input << "\n"
-  end
-end
-
-command 'uiBilliards' do |cmd|
-  #cmd.scope = '*.js'
-  cmd.key_binding = "Control+3"
-  cmd.key_binding.mac = "Command+3"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
-  
-  cmd.output = :insert_as_snippet
-  cmd.input = :selection, :line
-  cmd.invoke do |context|
-    
-    input = STDIN.read
-    input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiBilliards.js")
-    input << "\n"
-  end
-end
 
 command 'uiTable' do |cmd|
   #cmd.scope = '*.js'
@@ -157,6 +124,39 @@ command 'uiTwitter' do |cmd|
   end
 end
 
+command 'uiChess' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiChess.js")
+    input << "\n"
+  end
+end
+
+command 'uiBilliards' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiBilliards.js")
+    input << "\n"
+  end
+end
 
 command 'uiTemplate' do |cmd|
   #cmd.scope = '*.js'
