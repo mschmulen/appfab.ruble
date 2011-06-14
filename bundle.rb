@@ -1,12 +1,12 @@
 require 'ruble'
 
 bundle do |bundle|
-  bundle.display_name = 'Fabricator'
-  bundle.name = "Fabricator for Titanium"
+  bundle.display_name = 'APPFAB'
+  bundle.name = "Application Fabricator for Titanium"
   bundle.author = "Matt Schmulen"
 #  bundle.repository = "git://github.com/aptana/rails.ruble.git"
     
-    bundle.menu "Titanium Fabricator" do | fabricator_menu|
+    bundle.menu "Titanium APPFAB" do | fabricator_menu|
       fabricator_menu.scope = [ "app.js", "*.js"]
       
       fabricator_menu.menu "Insert factory" do | goto_menu |
@@ -33,12 +33,6 @@ end
 #end
 
 # execute a shell command
-#snippet "My shell Snippet" do |s|
-#  s.trigger = "foo"
-#  s.expansion = "${1:method_name}: function(${2:attribute}){}"
-#end
-
-# insert with tab stops
 #snippet "My shell Snippet" do |s|
 #  s.trigger = "foo"
 #  s.expansion = "${1:method_name}: function(${2:attribute}){}"
