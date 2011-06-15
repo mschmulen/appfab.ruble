@@ -14,11 +14,6 @@ var uiTable = (function() {
 	{title:'ROW 7', hasDetail:true, color:'blue', selectedColor:'#fff'}
 	];
   
-  var myPrivateVar ='private';
-  function myPrvateFunction(){  };
-  
-  API.myPublicVar = 'hello' 
-  
   API.factoryView = function(opts){ 
     var topView = Ti.UI.createView({});
     
@@ -29,6 +24,7 @@ var uiTable = (function() {
 	// create table view event listener
 	tv.addEventListener('click', function(e)
 	{
+		/*
 		// event data
 		var index = e.index;
 		var section = e.section;
@@ -36,7 +32,17 @@ var uiTable = (function() {
 		var rowdata = e.rowData;
 		Ti.API.info('detail ' + e.detail);
 		Titanium.UI.createAlertDialog({title:'Table View',message:'row ' + row + ' index ' + index + ' section ' + section  + ' row data ' + rowdata}).show();
-	});
+		*/
+		
+		var newWindow = Ti.UI.createWindow({ backgroundColor: '#ccc'});
+		var closeButton = Ti.UI.createButton({ title:'close', width:100, height: 30, top: 30});
+		newWindow.add( closeButton );
+		closeButton.addEventListener('click', function(e){
+			newWindow.close();
+		});
+		newWindow.open({  transition: Ti.UI.iPhone.AnimationStyle.CURL_UP });
+		
+	});//end click
 
 	topView.add( tv );
     return topView; 
