@@ -21,4 +21,3 @@ var uiTemplate = (function() {
 //Ti.UI.currentWindow.add( uiTemplate.factoryView({}) ); 
 //uiTemplate.factoryWindow({}).addChild( uiTemplate.factoryView({}) ).open({modal:true}); 
   
-

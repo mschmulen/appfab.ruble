@@ -176,9 +176,8 @@ command 'uiTemplate' do |cmd|
 end
 
 
-
 #newWindow
-command 'Win + Tab' do |cmd|
+command 'MACRO WinVAR + TabVAR' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"
@@ -203,6 +202,86 @@ command 'Win + Tab' do |cmd|
     input << "});  \n"
     input << "\n"
     input << "tabGroup.addTab(tab"+className+");\n"
+  end
+end
+
+#uiTemplate
+command 'MACRO uiVAR' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    className = STDIN.read
+    input = STDIN.read
+    
+    input << "var ui" + className + " = (function() {\n"
+    input << "  \n"
+    input << "  var API = { }; \n"
+    input << "  \n"
+    input << "  var myPrivateVar ='private'; \n"
+    input << "  function myPrivateFunction(){  };\n "
+    input << "  \n"
+    input << "  API.myPublicVar = 'hello' \n"
+    input << "  \n"
+    input << "  API.factoryView = function(opts){ \n"
+    input << "    var topView = Ti.UI.createView({});\n"
+    input << "    \n"
+    input << "    return topView; \n"
+    input << "  };\n"
+    input << "  \n"    
+    input << "  API.factoryWindow = function(opts){ \n"
+    input << "     var win = Ti.UI.createWindow({title:'ui"+className+"'}); \n"
+    input << "     win.addChild( factoryView( options ) ); \n"
+    input << "     return win; \n"
+    input << "  };\n"
+    input << "  \n"
+    input << "  return API;\n"
+    input << "})(); //end ui" + className
+    input << "  \n"
+    input << "//Ti.UI.currentWindow.add( ui"+className+".factoryView({}) ); \n"
+    input << "//ui"+className+".factoryWindow({}).addChild( ui"+className+".factoryView({}) ).open({modal:true}); \n"
+    input << "  \n"
+    
+  end
+end
+
+
+command 'model Twitter' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModel/modelSQLITE.js")
+    input << "\n"
+  end
+end
+
+command 'model SQLITE' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModel/modelSQLITE.js")
+    input << "\n"
   end
 end
 
@@ -360,58 +439,69 @@ end
 
 
 
-# FACTORY templates for creating windows
-template "factory chessWindow" do |t|
+# FACTORY templates
+template "factory uiChess" do |t|
   t.filetype = "*.js"
-  
   t.invoke do |context|
     ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
-    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/templates/factoryWindowTemplates/chessWindow.js")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiChess.js")
     raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
   end
 end
 
-template "factory imageViewWindow" do |t|
+template "factory uiSplash" do |t|
   t.filetype = "*.js"
   t.invoke do |context|
     ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
-    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/templates/factoryWindowTemplates/imageViewWindow.js")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiSplash.js")
     raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
   end
 end
 
-template "factory mapsWindow" do |t|
+template "factory uiMap" do |t|
   t.filetype = "*.js"
   t.invoke do |context|
     ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
-    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/templates/factoryWindowTemplates/mapsWindow.js")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiMap.js")
     raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
   end
 end
 
-template "factory pickerWindow" do |t|
+template "factory uiTable" do |t|
   t.filetype = "*.js"
   t.invoke do |context|
     ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
-    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/templates/factoryWindowTemplates/pickerWindow.js")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTable.js")
     raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
   end
 end
 
-template "factory tableViewWindow" do |t|
+template "factory uiTwitter" do |t|
   t.filetype = "*.js"
   t.invoke do |context|
     ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
-    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/templates/factoryWindowTemplates/tableViewWindow.js")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTwitter.js")
     raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
   end
 end
 
-template "factory tableView twitterWindow" do |t|
+
+# MODEL TEMPLATES
+template "factory modelTwitter" do |t|
   t.filetype = "*.js"
   t.invoke do |context|
     ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
-    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/templates/factoryWindowTemplates/twitterWindow.js")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModel/modelTwitter.js")
+    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+  end
+end
+
+
+template "factory modelSQLITE" do |t|
+  t.filetype = "*.js"
+  t.invoke do |context|
+    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModel/modelSQLITE.js")
     raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
   end
 end
