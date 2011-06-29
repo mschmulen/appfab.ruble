@@ -11,11 +11,8 @@ bundle do |bundle|
       
       fabricator_menu.menu "Insert factory" do | goto_menu |
         goto_menu.command "insert YACK"
-        goto_menu.command "insert FOO"
         goto_menu.seperator
-        goto_menu.command "YACK C"
-        goto_menu.command "YACK D"
-        goto_menu.command "YACK E"
+        goto_menu.command "insert FOO"
         goto_menu.seperator
       end 
     end
@@ -404,34 +401,17 @@ end
 # ********************************************************
 
 
-project_template "TitaniumTab Project Template github" do |t|
-  t.type = :titanium_mobile
-  t.location = "git@github.com:mschmulen/tiTemplateTab.git"
-  t.description = "Remote template. Requires network access."
-end
+# project_template "TitaniumTab Project Template github" do |t|
+#   t.type = :titanium_mobile
+#   t.location = "git@github.com:mschmulen/tiTemplateTab.git"
+#   t.description = "Remote template. Requires network access."
+# end
 
-project_template "APPFAB Template local" do |t|
-  t.type = :titanium_mobile
-  t.location = "templates/AppFabTemplate.zip"
-  t.description = "A basic tab template which includes app.js and MAIN.js file"
-end
-
-
-
-# ********************************************************
-# APP TEMPLATES
-# ********************************************************
-
-# APP FAB App, Template for creating a APP FAB APP
-# - Functional encapsoltaion, factory implementatoin for UI, model and services modular architecture
-# - 4 Tab App (   )
-# - 
-project_template "APPFAB App - Appliction Fabricator Project Template local" do |t|
-  t.type = :titanium_mobile
-  t.location = "templates/appFabTemplate.zip"
-  t.description = "Template fro creating an APP FAB APP"
-end
-
+# project_template "APPFAB Template" do |t|
+#   t.type = :titanium_mobile
+#   t.location = "templates/AppFabTemplate.zip"
+#   t.description = "A basic tab template which includes app.js and MAIN.js file"
+# end
 
 # ********************************************************
 # File templates: Titanium Mobile Javascript Templates
