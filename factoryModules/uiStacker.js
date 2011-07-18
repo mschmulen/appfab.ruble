@@ -3,12 +3,11 @@
 
 var uiStacker = (function() {
   	
-  	var API = { }; 
+  	var API = { };
     
   	API.factoryView = function( options )
 	{
-		//var topView = Ti.UI.createView({backgroundImage:"night.jpg" });
-		var topView = Ti.UI.createView({ backgroundColor:'black' });
+		var topView = Ti.UI.createView({ backgroundColor:'#B1B1B1' });
 		
 		var box2d = require("ti.box2d");
 		var	world = box2d.createWorld(topView);
@@ -80,7 +79,8 @@ var uiStacker = (function() {
 	
   return API;
 })(); //end uiStacker
-Ti.UI.currentWindow.add( uiStacker.factoryView({}) );
+//Ti.UI.currentWindow.add( uiStacker.factoryView({}) );
 //uiStacker.factoryWindow({}).open({modal:true});
+uiStacker.factoryWindow({}).open({fullscreen:true});
 
 

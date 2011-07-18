@@ -426,8 +426,8 @@ command 'PayPal button' do |cmd|
 end
 
 
-#Stacker demo
-command 'stacker demo' do |cmd|
+#Stacker demo BOX2D
+command 'stacker demo Box2D' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+="
   cmd.key_binding.mac = "Command+="
@@ -438,11 +438,62 @@ command 'stacker demo' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/stacker.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiStacker.js")
     input << "\n"
   end
 end
 
+#charts demo
+command 'charts demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiCharts.js")
+    input << "\n"
+  end
+end
+
+#charts demo
+command 'gears demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiGears.js")
+    input << "\n"
+  end
+end
+
+
+#charts demo
+command 'ogl demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiOpengl.js")
+    input << "\n"
+  end
+end
 
 
 
