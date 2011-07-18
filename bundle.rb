@@ -14,7 +14,7 @@ bundle do |bundle|
         goto_menu.seperator
         goto_menu.command "insert FOO"
         goto_menu.seperator
-      end 
+      end
     end
 end
 
@@ -26,7 +26,7 @@ end
 # insert some code
 #snippet "My Insert Snippet" do |snip|
 #  snip.trigger = "foo"
-#  snip.expansion = "snippet code to be inserted "
+#  snip.expansion = "snippet code to be inserted"
 #end
 
 # execute a shell command
@@ -46,6 +46,78 @@ end
 # ********************************************************
 # Commands: 
 # ********************************************************
+
+
+# ********************************************************
+# COMMAND+1  
+# ********************************************************
+
+#closures
+command 'js encapsulate' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+1"
+  cmd.key_binding.mac = "Command+1"
+  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    className = STDIN.read
+    input = STDIN.read
+    
+    input << "var " + className + " = (function() {\n"
+    input << "  \n"
+    input << "  var API = { }; \n"
+    input << "  \n"
+    input << "  var myPrivateVar ='private'; \n"
+    input << "  function myPrivateFunction(){  };\n "
+    input << "  \n"
+    input << "  API.myPublicVar = 'hello' \n"
+    input << "  \n"
+    input << "  API.factoryView"+className+" = function(opts){ \n"
+    input << "    var topView = Ti.UI.createView({});\n"
+    input << "    \n"
+    input << "    return topView; \n"
+    input << "  };\n"
+    input << "  \n"    
+    input << "  API.factoryWindow"+className+" = function(opts){ \n"
+    input << "     var win = Ti.UI.createWindow({title:'"+className+"'}); \n"
+    input << "     win.addChild( factoryView"+className+"( options ) ); \n"
+    input << "     return win; \n"
+    input << "  };\n"
+    input << "  \n"
+    input << "  return API;\n"
+    input << "})(); //end " + className
+    input << "  \n"
+    input << "//Ti.UI.currentWindow.add( "+className+".factoryView"+className+"({}) ); \n"
+    input << "//"+className+".factoryWindow"+className+"({}).addChild( "+className+".factoryView"+className+"({}) ).open({modal:true}); \n"
+    input << "  \n"
+    
+  end
+end
+
+
+# Window factories
+command 'factory factoryWindowEmpty' do |cmd|
+  cmd.key_binding = "Control+2"
+  cmd.key_binding.mac = "Command+2"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    winName = STDIN.read
+    input = STDIN.read
+    input << "var " + winName + " = APP.UI.factoryWindowEmpty({ parentTab:APP.tabs[3].tabRef });  \n"    
+  end
+end
+
+
+# ********************************************************
+# COMMAND+2 
+# ********************************************************
+
+
 
 # ********************************************************
 # COMMAND+3 WindowFactories 
@@ -189,6 +261,7 @@ command 'MACRO WinVAR + TabVAR' do |cmd|
     
     input << "var win"+className+" = Titanium.UI.createWindow({   \n"
     input << "  title:'"+className+"', \n"
+    input << "  url:'"+className+".js', \n"
     input << "  backgroundColor:'#fff'  \n"
     input << "}); \n"
     
@@ -283,16 +356,40 @@ command 'model SQLITE' do |cmd|
 end
 
 
+# ********************************************************
+# COMMAND+4 
+# ********************************************************
+
+
 
 # ********************************************************
-# COMMAND+1
+# COMMAND+5
 # ********************************************************
 
-#closures
-command 'js encapsulate' do |cmd|
+# ********************************************************
+# COMMAND+6 
+# ********************************************************
+
+# ********************************************************
+# COMMAND+7 
+# ********************************************************
+
+
+
+# ********************************************************
+# COMMAND+9
+# ********************************************************
+
+
+# ********************************************************
+# COMMAND+=     Titanium + Module short cuts.
+# ********************************************************
+
+#PayPal button
+command 'PayPal button' do |cmd|
   #cmd.scope = '*.js'
-  cmd.key_binding = "Control+1"
-  cmd.key_binding.mac = "Command+1"
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
   #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
   
   cmd.output = :insert_as_snippet
@@ -302,52 +399,84 @@ command 'js encapsulate' do |cmd|
     className = STDIN.read
     input = STDIN.read
     
-    input << "var " + className + " = (function() {\n"
-    input << "  \n"
-    input << "  var API = { }; \n"
-    input << "  \n"
-    input << "  var myPrivateVar ='private'; \n"
-    input << "  function myPrivateFunction(){  };\n "
-    input << "  \n"
-    input << "  API.myPublicVar = 'hello' \n"
-    input << "  \n"
-    input << "  API.factoryView"+className+" = function(opts){ \n"
-    input << "    var topView = Ti.UI.createView({});\n"
-    input << "    \n"
-    input << "    return topView; \n"
-    input << "  };\n"
     input << "  \n"    
-    input << "  API.factoryWindow"+className+" = function(opts){ \n"
-    input << "     var win = Ti.UI.createWindow({title:'"+className+"'}); \n"
-    input << "     win.addChild( factoryView"+className+"( options ) ); \n"
-    input << "     return win; \n"
-    input << "  };\n"
-    input << "  \n"
-    input << "  return API;\n"
-    input << "})(); //end " + className
-    input << "  \n"
-    input << "//Ti.UI.currentWindow.add( "+className+".factoryView"+className+"({}) ); \n"
-    input << "//"+className+".factoryWindow"+className+"({}).addChild( "+className+".factoryView"+className+"({}) ).open({modal:true}); \n"
-    input << "  \n"
-    
+    input << "var ppButton = Titanium.Paypal.createPaypalButton(\n"
+    input << "{\n"
+    input << "  width: 294,\n"
+    input << "  height: 50,\n"
+    input << "  bottom: 50,\n"
+    input << "  appId: \"APP-80W284485P519543T\",\n"
+    input << "  buttonStyle: Ti.Paypal.BUTTON_294x43,\n"
+    input << "  paypalEnvironment: Ti.Paypal.PAYPAL_ENV_SANDBOX,\n"
+    input << "  feePaidByReceiver: false,\n"
+    input << "  transactionType: Ti.Paypal.PAYMENT_TYPE_DONATION,\n"
+    input << "  enableShipping: false,\n"
+    input << "  payment: {\n"
+    input << "    amount: win.data.amt,\n"
+    input << "    tax: 0.00,\n"
+    input << "    shipping: 0.00,\n"
+    input << "    currency: \"USD\",\n"
+    input << "    recipient: \"osama@x.com\",\n"
+    input << "    itemDescription: \"Donation\",\n"
+    input << "    merchantName: \"American Red Cross\"\n"
+    input << "}\n"
+    input << "});\n"
+
   end
 end
 
 
-# Window factories
-command 'factory factoryWindowEmpty' do |cmd|
-  cmd.key_binding = "Control+2"
-  cmd.key_binding.mac = "Command+2"
+#Stacker demo
+command 'stacker demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
   
   cmd.output = :insert_as_snippet
   cmd.input = :selection, :line
   cmd.invoke do |context|
-    winName = STDIN.read
+    
     input = STDIN.read
-    input << "var " + winName + " = APP.UI.factoryWindowEmpty({ parentTab:APP.tabs[3].tabRef });  \n"    
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/stacker.js")
+    input << "\n"
   end
 end
 
+
+
+
+
+
+# ********************************************************
+# ********************************************************
+# ********************************************************
+# ********************************************************
+
+
+
+command 'open in browser' do |cmd|
+  cmd.key_binding = "Control+9"
+  cmd.key_binding.mac = "Command+9"
+  cmd.output = :output_to_console
+  cmd.input = :selection
+  cmd.invoke do |context|
+    selection = ENV['TM_SELECTED_TEXT']
+    context.browser.open(selection, :browser => :default)   
+  end
+end
+
+command 'Open Document in Default Browser' do |cmd|
+  cmd.key_binding = "Control+9"
+  cmd.key_binding.mac = "Command+9"
+  cmd.output = :discard
+  cmd.input = :none
+  cmd.invoke do |context|
+    require 'uri'
+    url = "file:#{URI.escape(ENV['TM_FILEPATH'])}"
+    context.browser.open(url, :browser => :default)
+  end
+end
 
 #command 'format HTML' do |cmd|
   #cmd.scope = '*.js'
@@ -400,12 +529,18 @@ end
 # Project templates: Titanium Mobile Project Templates
 # ********************************************************
 
+project_template "Tab fab github" do |t|
+  t.type = :titanium_mobile
+  t.location = "git://github.com/mschmulen/tiTemplateTab.git"
+  t.description = "Remote template. Requires network access."
+end
 
-# project_template "TitaniumTab Project Template github" do |t|
-#   t.type = :titanium_mobile
-#   t.location = "git@github.com:mschmulen/tiTemplateTab.git"
-#   t.description = "Remote template. Requires network access."
-# end
+#project_template "Tab fab local" do |t|
+#  t.type = :titanium_mobile
+#  t.location = "templates/tabFab.zip"
+#  t.description = "Tab Factory "
+#end
+
 
 # project_template "APPFAB Template" do |t|
 #   t.type = :titanium_mobile
