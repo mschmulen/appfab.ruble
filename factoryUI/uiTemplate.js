@@ -19,5 +19,5 @@ var uiTemplate = (function() {
   return API;
 })(); //end uiTemplate
 //Ti.UI.currentWindow.add( uiTemplate.factoryView({}) ); 
-//uiTemplate.factoryWindow({}).addChild( uiTemplate.factoryView({}) ).open({modal:true}); 
+//uiTemplate.factoryWindow({}).open({modal:true}); 
   
