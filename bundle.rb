@@ -385,6 +385,23 @@ command 'PayPal button' do |cmd|
   end
 end
 
+# paint demo
+command 'paint demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiPaint.js")
+    input << "\n"
+  end
+end
+
 
 #Stacker demo BOX2D
 command 'stacker demo Box2D' do |cmd|
