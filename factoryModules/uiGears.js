@@ -1,34 +1,9 @@
 
 
-//<module version="0.3">ti.opengl</module>
+//<module version="1.0">ti.opengl</module>
 
-/*  gear.js
- *
- * 3-D gear wheels.  This program is in the public domain.
- *
- * Brian Paul
- *
- * Conversion to OpenGL ES:  http://www.khronos.org/message_boards/viewtopic.php?f=4&t=1906
- * Conversion to Javascript for use with Ti.OpenGL module by Richard M. Salter, Logical Labs
- * Copyright 2011, Logical Labs. All rights reserved.
- */
+Ti.Opengl = require('Ti.OpenGL');
 
-var window = Ti.UI.createWindow({
-	backgroundColor:'white'
-});
-
-var TiOpengl = require('Ti.OpenGL');
-
-/*  gearMaker.js
- *
- * 3-D gear wheels.  This program is in the public domain.
- *
- * Brian Paul
- *
- * Conversion to OpenGL ES:  http://www.khronos.org/message_boards/viewtopic.php?f=4&t=1906
- * Conversion to Javascript for use with Ti.OpenGL module by Richard M. Salter, Logical Labs
- *
- */
 
 var GearMaker = function(inner_radius, outer_radius, width, teeth, tooth_depth, color_, openGL) {
 	function push3(vx, x, y, z) {
@@ -37,9 +12,9 @@ var GearMaker = function(inner_radius, outer_radius, width, teeth, tooth_depth, 
 		vx.push(z);
 	}
 
-	this.vertices = new Array();
-	this.normals = new Array();
-	this.indices = new Array();
+	var vertices = new Array();
+	var normals = new Array();
+	var indices = new Array();
 	this.nindices = teeth*66*3
 	this.color = color_
 
@@ -59,9 +34,9 @@ var GearMaker = function(inner_radius, outer_radius, width, teeth, tooth_depth, 
 	r2 = outer_radius + tooth_depth / 2.0;
 	da = (2.0 * Math.PI / teeth) / 4.0;
 
-	vx = this.vertices;
-	nx = this.normals;
-	ix = this.indices;
+	vx = vertices;
+	nx = normals;
+	ix = indices;
 
 	for (i = 0; i < teeth; i++) {
 		ta = i * 2.0 * Math.PI / teeth;
@@ -266,72 +241,18 @@ var GearMaker = function(inner_radius, outer_radius, width, teeth, tooth_depth, 
 		ix[ictr++] = ix1, ix[ictr++] = ix3;
 		ix[ictr++] = ix2;
 	}
-    this.vertexBuffer = openGL.createDataBuffer({
-    	data: this.vertices,
+    this.vertexDB = openGL.createDataBuffer({
+    	data: vertices,
     	type: openGL.GL_FLOAT
     });
-    this.normalBuffer = openGL.createDataBuffer({
-    	data: this.normals,
+    this.normalDB = openGL.createDataBuffer({
+    	data: normals,
     	type: openGL.GL_FLOAT
     });
-    this.indexBuffer = openGL.createDataBuffer({
-    	data: this.indices,
+    this.indexDB = openGL.createDataBuffer({
+    	data: indices,
     	type: openGL.GL_UNSIGNED_SHORT
     });
-    this.vertices = null;
-    this.normals = null;
-    this.indices = null;
-}
-
-var GestureListener = function(opengl) {
-	
-	this.width = opengl.width;
-	this.height = opengl.height
-	this.pinchStart = 0;
-	this.newPinch = true;
-	this.scaleStart = 1;
-	this.xstart = 0;
-	this.ystart = 0
-	this.xpos = 0; 
-	this.ypos = 0; 
-	this.xcur = 0; 
-	this.ycur = 0;
-	this.scale = 1;
-	
-	var me = this;
-	
-	opengl.addEventListener('pinch', function(e) {
-		if (me.newPinch) {
-			me.newPinch = false;
-			me.scaleStart = me.scale;
-			me.pinchStart = e.scale;
-		} else {
-			me.scale = Math.max(me.scaleStart + e.scale - me.pinchStart, 0);
-		}
-	});
-
-	opengl.addEventListener('touchstart', function(e) {
-		me.xstart = e.x;
-		me.ystart = e.y;
-		me.newPinch = true;
-	});
-	
-	opengl.addEventListener('touchmove', function(e) {
-		me.xpos = 2*(e.x - me.xstart)/me.width;
-		me.ypos = 2*(e.y - me.ystart)/me.width;
-	});
-	
-	opengl.addEventListener('touchend', function(e) {
-		me.xcur = me.xcur-me.xpos;
-		me.ycur = me.ypos+me.ycur;
-		me.xpos = 0;
-		me.ypos = 0;
-	});
-
-	
-
-
-	
 }
 
 
@@ -354,148 +275,439 @@ var Mover = function(speed_) {
 	}
 
 
+var GestureListener = function(opengl) {
 
-Demo = new Object();
+	var rect = opengl.bounds;
+	var width = rect.width;
+	var height = rect.height;
+	var pinchStart = 0;
+	var newPinch = true;
+	var scaleStart = 1;
+	var xstart = 0;
+	var ystart = 0
+	var xpos = 0; 
+	var ypos = 0; 
+	var xcur = 0; 
+	var ycur = 0;
+	var scale = 1;
 
-// create OpenGL view
-
-Demo.opengl = TiOpengl.createView({
-	backgroundColor:"#000",
-	top:10,
-	left:10,
-	width:300,
-	height:340,
-	initializer:false,
-	depthbuffer:true,
-});
-
-Demo.slider = Ti.UI.createSlider({
-	top:410,
-	left:30,
-	width:260,
-	min:0,
-	max:200,
-	value:100,
-	title:"Speed"
-});
-
-Demo.draw = function(e) {
-	var opengl = Demo.opengl;
-	var button = Demo.button;
-	var slider = Demo.slider;
-
-	var speed = 100;
-	var mover = new Mover(speed);
-	var gestureListener = new GestureListener(opengl);
-	
-	slider.addEventListener('change', function(e) {
-		mover.setSpeed(e.source.value)
-	})
-
-	var view_rotx = 20.0, view_roty = 30.0, view_rotz = 0.0;
-	var gear1, gear2, gear3;
-	var angle = 0.0;
-	var viewDist = 40.0;
-
-	var setup = function(view) {
-		var pos = [ 0.0, 10.0, 10.0, 0 ];
-		var red = [ 0.8, 0.1, 0.0, 1.0 ];
-		var green = [ 0.0, 0.8, 0.2, 1.0 ];
-		var blue = [ 0.2, 0.2, 1.0, 1.0 ];
-		var h = view.height / view.width;
-
-		view.glViewport(0, 0, view.width, view.height);
-		view.glMatrixMode(TiOpengl.GL_PROJECTION);
-		view.glLoadIdentity();
-		view.glFrustumf(-1.0, 1.0, -h, h, 5.0, 200.0);
-		view.glMatrixMode(TiOpengl.GL_MODELVIEW);
-
-		view.glEnable(TiOpengl.GL_CULL_FACE);
-		view.glEnable(TiOpengl.GL_LIGHTING);
-		view.glEnable(TiOpengl.GL_LIGHT0);
-		view.glEnable(TiOpengl.GL_DEPTH_TEST);
-		view.glShadeModel(TiOpengl.GL_SMOOTH);
-		view.glLightfv(TiOpengl.GL_LIGHT0, TiOpengl.GL_POSITION, pos);
-		var light0Ambient = [0.1, 0.1, 0.1, 1.0];
-		view.glLightfv(TiOpengl.GL_LIGHT0, TiOpengl.GL_AMBIENT, light0Ambient);
-		var light0Diffuse = [2.0, 2.0, 2.0, 1.0];
-		view.glLightfv(TiOpengl.GL_LIGHT0, TiOpengl.GL_DIFFUSE, light0Diffuse);
-		var light0Specular = [1.5, 1.5, 1.5, 1.0];
-		var light0Shininess = 0.4;
-		view.glLightfv(TiOpengl.GL_LIGHT0, TiOpengl.GL_SPECULAR, light0Specular);
-		var light0Direction = [0.0, 0.0, -1.0];
-		view.glLightfv(TiOpengl.GL_LIGHT0, TiOpengl.GL_SPOT_DIRECTION, light0Direction);
-		view.glLightf(TiOpengl.GL_LIGHT0, TiOpengl.GL_SPOT_CUTOFF, 100.0);
-
-		view.glEnableClientState(TiOpengl.GL_NORMAL_ARRAY);
-		view.glEnableClientState(TiOpengl.GL_VERTEX_ARRAY);
-		view.glEnable(TiOpengl.GL_NORMALIZE);
-
-		view.glFinish();
-
-		gear1 = new GearMaker(1.0, 4.0, 1.0, 20, 0.7, red, TiOpengl);
-		gear2 = new GearMaker(0.5, 2.0, 2.0, 10, 0.7, green, TiOpengl);
-		gear3 = new GearMaker(1.3, 2.0, 0.5, 10, 0.7, blue, TiOpengl);
-	}
-	var drawImage = function(view, timestamp) {
-		angle = mover.iterate(timestamp);
-		if (angle > 3600.0)
-			angle -= 3600.0;
-		view.setFrameBuffer();
-		view.erase();
-		view.glPushMatrix();
-		view.glTranslatef(1.0, 0, -viewDist);
-		var scale = gestureListener.scale;
-		view.glScalef(scale, scale, scale);
-
-		view.glRotatef(view_rotx+100*(gestureListener.ypos+gestureListener.ycur), 1.0, 0.0, 0.0);
-		view.glRotatef(view_roty+100*(gestureListener.xpos-gestureListener.xcur), 0.0, 1.0, 0.0);
-		view.glRotatef(view_rotz, 0.0, 0.0, 1.0);
-
-		view.glPushMatrix();
-		view.glTranslatef(-3.0, -2.0, 0.0);
-		view.glRotatef(angle, 0.0, 0.0, 1.0);
-		draw_gear(view, gear1);
-		view.glPopMatrix();
-
-		view.glPushMatrix();
-		view.glTranslatef(3.1, -2.0, 0.0);
-		view.glRotatef(-2.0 * angle - 9.0, 0.0, 0.0, 1.0);
-		draw_gear(view, gear2);
-		view.glPopMatrix();
-
-		view.glPushMatrix();
-		view.glTranslatef(-3.1, 4.2, 0.0);
-		view.glRotatef(-2.0 * angle - 25.0, 0.0, 0.0, 1.0);
-		draw_gear(view, gear3);
-		view.glPopMatrix();
-
-		view.glPopMatrix();
-		view.glFinish();
-		view.presentFrameBuffer();
-	}
-	
-	var draw_gear = function(view, gear) {
-		view.glMaterialfv(TiOpengl.GL_FRONT_AND_BACK, TiOpengl.GL_AMBIENT_AND_DIFFUSE, gear.color);
-		view.glVertexPointer(3, TiOpengl.GL_FLOAT, 0, gear.vertexBuffer);
-		view.glNormalPointer(TiOpengl.GL_FLOAT, 0, gear.normalBuffer);
-		view.glDrawElements(TiOpengl.GL_TRIANGLES, gear.nindices/3, TiOpengl.GL_UNSIGNED_SHORT, gear.indexBuffer);
-	}
-
-	var init = function () {
-		setup(opengl);
-		var drawFrame = function(e) {
-			drawImage(opengl, new Date().getTime());
+	opengl.addEventListener('pinch', function(e) {
+		if (newPinch) {
+			newPinch = false;
+			scaleStart = scale;
+			pinchStart = e.scale;
+		} else {
+			scale = Math.max(scaleStart + e.scale - pinchStart, 0);
 		}
-		var interval = 33;
-		var timer = setInterval(drawFrame, interval);
+	});
+
+	opengl.addEventListener('touchstart', function(e) {
+		xstart = e.x;
+		ystart = e.y;
+		newPinch = true;
+	});
+	
+	opengl.addEventListener('touchmove', function(e) {
+		xpos = 2*(e.x - xstart)/width;
+		ypos = 2*(e.y - ystart)/height;
+	});
+	
+	opengl.addEventListener('touchend', function(e) {
+		xcur = xcur-xpos;
+		ycur = ypos+ycur;
+		xpos = 0;
+		ypos = 0;
+	});
+
+	this.xmove = function() {
+		return xpos-xcur;
 	}
 	
-	init();
+	this.ymove = function() {
+		return -(ypos+ycur);
+	}
+
+	this.scale = function() {
+		return scale;
+	}
+	
 }
 
-window.add(Demo.opengl);
-window.add(Demo.slider);
-window.addEventListener('open', Demo.draw);
+
+var TiOpenGLUtil = {
+	startAnimation : function(view, callback, interval, delay, target) {
+		if (delay == null || target == null) {
+			return setInterval(function(e){callback(view, new Date().getTime());}, interval);
+		};
+		if (delay > 0) {
+			setTimeout(
+				function() {
+					target.timer = setInterval(function(e){callback(view, new Date().getTime());}, interval);
+				}, 
+				delay
+			);
+		}
+	},
+	addComponents : function(parent, children) {
+		for (var idx in children) {
+			if (!children[idx].noadd) parent.add(children[idx]);
+		}
+	},
+	makeBuffers : function(view, dataBufs) {
+		var bufs0 = [dataBufs.vertexDB, 
+					dataBufs.colorDB, 
+					dataBufs.normalDB,
+					dataBufs.textureDB];
+		var idb = dataBufs.indexDB;					
+		bufs = [];
+		starts = [];
+		tot = 0;
+		for (idx in bufs0) {
+			if (bufs0[idx] != null) {
+				bufs.push(bufs0[idx]);
+				starts.push(tot);
+				tot += bufs0[idx].size;
+			}
+		}
+		var vbo = view.glGenBuffers((idb == null) ? 1 : 2);
+		view.glBindBuffer(view.GL_ARRAY_BUFFER, vbo[0]);
+		view.mapBuffer(view.GL_ARRAY_BUFFER, view.GL_STATIC_DRAW, bufs);
+		if (idb != null) {
+			view.glBindBuffer(view.GL_ELEMENT_ARRAY_BUFFER, vbo[1]);
+			view.glBufferData(view.GL_ELEMENT_ARRAY_BUFFER, idb.getSize(), idb, view.GL_STATIC_DRAW);
+		}
+		return {
+			vbo : vbo, 
+			start : starts
+		}
+	},
+	starter : function(n_, f_) {
+		this.n = n_
+		this.f = f_
+		var me = this;
+		this.wait = function(e) {
+			me.n--;
+			if (me.n == 0) {me.f();}
+		}
+	},
+	
+	// www.sean.co.uk 
+	// (yuck)
+	
+	 pauseComp : function(millis) 
+	{
+		var date = new Date();
+		var curDate = null;
+	
+		do { curDate = new Date(); } 
+		while(curDate-date < millis);
+	} 
+	
+}
+
+var defaultInit = {
+	setup: function(view) {
+		view.setCurrentContext();
+    	view.glMatrixMode(view.GL_PROJECTION);
+	    view.glLoadIdentity();
+	    var frame = view.bounds;
+	   	var scale = view.contentScaleFactor;
+    // Setup the view port in Pixels
+	    view.glOrthof(0, frame.width * scale, 0, frame.height * scale, -1, 1);
+	    view.glViewport(0, 0, frame.width * scale, frame.height * scale);
+	    view.glMatrixMode(view.GL_MODELVIEW);
+	    view.glLoadIdentity();    
+	    view.glDisable(view.GL_DITHER);
+	    view.glEnable(view.GL_TEXTURE_2D);
+	    view.glEnableClientState(view.GL_VERTEX_ARRAY);
+	    view.glEnable(view.GL_BLEND);
+    // Set a blending function appropriate for premultiplied alpha pixel data
+	    view.glBlendFunc(view.GL_ONE, view.GL_ONE_MINUS_SRC_ALPHA);
+	    view.glEnable(view.GL_POINT_SPRITE_OES);
+	    view.glTexEnvf(view.GL_POINT_SPRITE_OES, view.GL_COORD_REPLACE_OES, view.GL_TRUE); 		
+	}
+}
+
+function getOrientation(o)
+{
+	switch (o)
+	{
+		case Titanium.UI.PORTRAIT:
+		{
+			return 'portrait';
+		}
+		case Titanium.UI.UPSIDE_PORTRAIT:
+		{
+			return 'upside portrait';
+		}
+		case Titanium.UI.LANDSCAPE_LEFT:
+		{
+			return 'landscape left';
+		}
+		case Titanium.UI.LANDSCAPE_RIGHT:
+		{
+			return 'landscape right';
+		}
+		case Titanium.UI.FACE_UP:
+		{
+			return 'face up';
+		}
+		case Titanium.UI.FACE_DOWN:
+		{
+			return 'face down';
+		}
+		case Titanium.UI.UNKNOWN:
+		{
+			return 'unknown';
+		}
+	}
+}
+
+function isPortrait(o) {
+	return o == Ti.UI.PORTRAIT || o == Ti.UI.UPSIDE_PORTRAIT;
+}
+
+if (!Array.prototype.map)
+{
+  Array.prototype.map = function(fun /*, thisp*/)
+  {
+    var len = this.length;
+    if (typeof fun != "function")
+      throw new TypeError();
+
+    var res = new Array(len);
+    var thisp = arguments[1];
+    for (var i = 0; i < len; i++)
+    {
+      if (i in this)
+        res[i] = fun.call(thisp, this[i], i, this);
+    }
+
+    return res;
+  };
+}
+
+
+var window = Ti.UI.createWindow();
+
+var Gears = function() {
+	var viewRect = {
+		left:0,
+		width:"100%",
+		top:0,
+		height:window.height
+	};
+
+	var obj = {
+		onClose : function(e) {
+			clearInterval(Gears.timer);
+		},
+
+		components : {
+			opengl : Ti.Opengl.createView({
+				backgroundColor:"#aaa",
+				top:viewRect.top,
+				left:viewRect.left,
+				width:viewRect.width,
+				height:viewRect.height,
+				depthbuffer:true,
+			}),
+			button : Ti.UI.createButton({
+//				width:100,
+//				height:30,
+				style:Titanium.UI.iPhone.SystemButtonStyle.BORDERED,
+				title:"Light Off",
+				noadd:true
+			}),
+			slider: Ti.UI.createSlider({
+				width:window.width/2 - 20,
+				min:0,
+				max:250,
+				value:100,
+				title:"Speed",
+				noadd:true				
+			}),
+			toolbar: Ti.UI.createToolbar({bottom:0}),
+			flex: Titanium.UI.createButton({
+               systemButton:Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE,
+               noadd:true
+           	}),
+		},
+
+		gears : function() {
+			var red = [ 0.8, 0.1, 0.0, 1.0 ];
+			var green = [ 0.0, 0.8, 0.2, 1.0 ];
+			var blue = [ 0.2, 0.2, 1.0, 1.0 ];
+			var ans =
+				new Array(new GearMaker(1.0, 4.0, 1.0, 20, 0.7, red, Ti.Opengl),
+				new GearMaker(0.5, 2.0, 2.0, 10, 0.7, green, Ti.Opengl),
+				new GearMaker(1.3, 2.0, 0.5, 10, 0.7, blue, Ti.Opengl));
+			return ans;
+		}(),
+		
+		vbufs : null,
+
+		begin : function() {
+			var opengl = obj.components.opengl;
+			var button = obj.components.button;
+			var slider = obj.components.slider;
+			var toolbar = obj.components.toolbar;
+			var speed = 100;
+			var mover = new Mover(speed);
+			var gestureListener = new GestureListener(opengl);
+			var flex = obj.components.flex;
+			
+			toolbar.items = [flex,button,flex,slider,flex];		
+			
+			slider.addEventListener('change', function(e) {
+				mover.setSpeed(e.source.value)
+			})
+			button.addEventListener('click', function(e) {
+				if (button.title == 'Light Off') {
+					var light0Diffuse = [0.0, 0.0, 0.0, 1.0];
+					opengl.glLightfv(Ti.Opengl.GL_LIGHT0, Ti.Opengl.GL_DIFFUSE, light0Diffuse);
+					button.title = 'Light On';
+				} else {
+					var light0Diffuse = [2.0, 2.0, 2.0, 1.0];
+					opengl.glLightfv(Ti.Opengl.GL_LIGHT0, Ti.Opengl.GL_DIFFUSE, light0Diffuse);
+					button.title = 'Light Off';
+				}
+			});
+			
+			var view_rotx = 20.0, view_roty = 30.0, view_rotz = 0.0;
+			var gear1, gear2, gear3;
+			var angle = 0.0;
+			var viewDist = 40.0;
+			var transY = new Array();
+				transY[Ti.UI.UPSIDE_PORTRAIT] = transY[Ti.UI.PORTRAIT] = .5;
+				transY[Ti.UI.LANDSCAPE_LEFT] = transY[Ti.UI.LANDSCAPE_RIGHT] = 3.5;
+				transY[Titanium.UI.FACE_UP] = transY[Titanium.UI.FACE_DOWN] = transY[Titanium.UI.UNKNOWN] = .5;								
+			var transZ = new Array();
+				transZ[Ti.UI.UPSIDE_PORTRAIT] = transZ[Ti.UI.PORTRAIT] = -40;
+				transZ[Ti.UI.LANDSCAPE_LEFT] = transZ[Ti.UI.LANDSCAPE_RIGHT] = -60;
+				transZ[Titanium.UI.FACE_UP] = transZ[Titanium.UI.FACE_DOWN] = transZ[Titanium.UI.UNKNOWN] = -40;								
+
+			var setCamera = function(view) {
+				
+				rect = view.bounds;
+				var h = rect.height / rect.width;
+				view.setCurrentContext();
+				view.glViewport(0, 0, view.width, view.height);
+				view.glMatrixMode(Ti.Opengl.GL_PROJECTION);
+				view.glLoadIdentity();
+				view.glFrustumf(-1.0, 1.0, -h, h, 5.0, 200.0);
+				view.glMatrixMode(Ti.Opengl.GL_MODELVIEW);				
+			}
+
+			var setup = function(view) {
+				var pos = [ 0.0, 10.0, 10.0, 0 ];				
+				setCamera(view);
+
+				view.glEnable(Ti.Opengl.GL_CULL_FACE);
+				view.glEnable(Ti.Opengl.GL_LIGHTING);
+				view.glEnable(Ti.Opengl.GL_LIGHT0);
+				view.glEnable(Ti.Opengl.GL_DEPTH_TEST);
+				view.glShadeModel(Ti.Opengl.GL_SMOOTH);
+				view.glLightfv(Ti.Opengl.GL_LIGHT0, Ti.Opengl.GL_POSITION, pos);
+				var light0Ambient = [0.1, 0.1, 0.1, 1.0];
+				view.glLightfv(Ti.Opengl.GL_LIGHT0, Ti.Opengl.GL_AMBIENT, light0Ambient);
+				var light0Diffuse = [2.0, 2.0, 2.0, 1.0];
+				view.glLightfv(Ti.Opengl.GL_LIGHT0, Ti.Opengl.GL_DIFFUSE, light0Diffuse);
+				var light0Specular = [1.5, 1.5, 1.5, 1.0];
+				var light0Shininess = 0.4;
+				view.glLightfv(Ti.Opengl.GL_LIGHT0, Ti.Opengl.GL_SPECULAR, light0Specular);
+				var light0Direction = [0.0, 0.0, -1.0];
+				view.glLightfv(Ti.Opengl.GL_LIGHT0, Ti.Opengl.GL_SPOT_DIRECTION, light0Direction);
+				view.glLightf(Ti.Opengl.GL_LIGHT0, Ti.Opengl.GL_SPOT_CUTOFF, 100.0);
+
+				view.glEnableClientState(Ti.Opengl.GL_NORMAL_ARRAY);
+				view.glEnableClientState(Ti.Opengl.GL_VERTEX_ARRAY);
+				view.glEnable(Ti.Opengl.GL_NORMALIZE);
+
+				obj.vbufs =
+				obj.gears.map( function(dbuf) {
+					return TiOpenGLUtil.makeBuffers(view, dbuf);
+				});
+				view.glFinish();
+
+			}
+			var drawImage = function(view, timestamp) {
+				angle = mover.iterate(timestamp);
+				if (angle > 3600.0)
+					angle -= 3600.0;
+				view.setFrameBuffer();
+				view.clear();
+				view.glPushMatrix();
+				view.glTranslatef(1.0, transY[Ti.UI.orientation], transZ[Ti.UI.orientation]);
+				var scale = gestureListener.scale();
+				view.glScalef(scale, scale, scale);
+
+				view.glRotatef(view_rotx-100*gestureListener.ymove(), 1.0, 0.0, 0.0);
+				view.glRotatef(view_roty+100*gestureListener.xmove(), 0.0, 1.0, 0.0);
+				view.glRotatef(view_rotz, 0.0, 0.0, 1.0);
+
+				view.glPushMatrix();
+				view.glTranslatef(-3.0, -2.0, 0.0);
+				view.glRotatef(angle, 0.0, 0.0, 1.0);
+				draw_gear(view, 0);
+				view.glPopMatrix();
+
+				view.glPushMatrix();
+				view.glTranslatef(3.1, -2.0, 0.0);
+				view.glRotatef(-2.0 * angle - 9.0, 0.0, 0.0, 1.0);
+				draw_gear(view, 1);
+				view.glPopMatrix();
+
+				view.glPushMatrix();
+				view.glTranslatef(-3.1, 4.2, 0.0);
+				view.glRotatef(-2.0 * angle - 25.0, 0.0, 0.0, 1.0);
+				draw_gear(view, 2);
+				view.glPopMatrix();
+
+				view.glPopMatrix();
+				view.glFinish();
+				view.presentFrameBuffer();
+				view.glFinish();
+			}
+			var draw_gear = function(view, idx) {
+				var gear = obj.gears[idx];
+				var vbuf = obj.vbufs[idx];
+				view.glMaterialfv(Ti.Opengl.GL_FRONT_AND_BACK, Ti.Opengl.GL_AMBIENT_AND_DIFFUSE, gear.color);
+				view.glBindBuffer(Ti.Opengl.GL_ARRAY_BUFFER, vbuf.vbo[0]);
+				view.glBindBuffer(Ti.Opengl.GL_ELEMENT_ARRAY_BUFFER, vbuf.vbo[1]);
+				view.glVertexPointer(3, Ti.Opengl.GL_FLOAT, 0, vbuf.start[0]);
+				view.glNormalPointer(Ti.Opengl.GL_FLOAT, 0, vbuf.start[1]);
+				view.glDrawElements(Ti.Opengl.GL_TRIANGLES, gear.nindices/3, Ti.Opengl.GL_UNSIGNED_SHORT, 0);
+			}
+			var interval = 33.33333;
+
+			var init = function() {
+				setup(opengl);
+				TiOpenGLUtil.startAnimation(opengl, drawImage, interval, 100, obj);				
+			}
+			
+			var reInit = function(e) {
+				clearInterval(obj.timer);
+				setCamera(opengl);
+				TiOpenGLUtil.startAnimation(opengl, drawImage, interval, 100, obj);								
+			}
+
+			Ti.Gesture.addEventListener('orientationchange', reInit);
+   			
+			init();
+		}
+	}
+	return obj;
+}();
+
+var initialize = function() {
+	Gears.components.opengl.addEventListener('ready', function() {
+		Gears.begin()
+	});
+	TiOpenGLUtil.addComponents(window, Gears.components);
+}
+initialize();
 window.open();
+
+
 
