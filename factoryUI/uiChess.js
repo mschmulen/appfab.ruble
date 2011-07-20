@@ -5,6 +5,8 @@ var uiChess = (function() {
     
   	API.factoryView = function( options )
 	{
+		topView = Ti.UI.createView({layout:'horizontal', top:20, width: 320, height:480 });
+		
 		// Simple and tiny chess for Appcelerator
 		// Javascript chess engine (c)2011 Oscar Toledo G.
 		// Modified by @pecdev with the help of @pec1985 (follow us on twitter)
@@ -28,8 +30,6 @@ var uiChess = (function() {
 		while(++O>98?O=20:e-O);return y^=8,G--,N+M*M&&N>-K+1924|d?N:0;}B=i=y=u=0;while(B++<
 		120)I[B-1]=B%x?B/x%x<2|B%x<2?7:B/x&4?0:l[i++]|16:7;
 		
-		var topView = Ti.UI.createView({layout:'horizontal', top:20, width: 320, height:480 });
-		//var win = Ti.UI.createWindow({layout:'horizontal', title:'chess'});
 		var arry = [];
 		var view = function(e){
 			var label = Ti.UI.createLabel(e);
@@ -97,13 +97,13 @@ var uiChess = (function() {
 	
 	API.factoryWindow = function( options )
 	{
-		var win = Ti.UI.createWindow({title:'chess'});
+		win = Ti.UI.createWindow({title:'chess'});
 		win.addChild( API.factoryView( options ) );
 		return win;
 	}//end factoryWindow
 	
   return API;
 })(); //end uiChess
-//Ti.UI.currentWindow.add( uiChess.factoryView({}) );
-//uiChess.factoryWindow({}).addChild( uiChess.factoryView({}) ).open({modal:true});
-
+Ti.UI.currentWindow.add( uiChess.factoryView({}) ); 
+//uiChess.factoryWindow({}).open({modal:true});
+//uiChess.factoryWindow({}).open({fullscreen:true});

@@ -1,4 +1,3 @@
-
 var uiSplash = (function() {
   
   var API = { }; 
@@ -25,7 +24,6 @@ var uiSplash = (function() {
   
   return API;
 })(); //end uiSplash
-//Ti.UI.currentWindow.add( uiSplash.factoryView({}) ); 
-//uiSplash.factoryWindow({}).addChild( uiSplash.factoryView({}) ).open({modal:true}); 
-  
-
+Ti.UI.currentWindow.add( uiSplash.factoryView({}) ); 
+//uiSplash.factoryWindow({}).open({modal:true});
+//uiSplash.factoryWindow({}).open({fullscreen:true});
