@@ -1,11 +1,10 @@
 
-
 var uiTable = (function() {
   
   var API = { }; 
   
   API.data = [
-	{title:'ROW 1 ', hasChild:true },
+	{title:'ROW 1', hasChild:true },
 	{title:'ROW 2', hasChild:true },
 	{title:'ROW 3', hasChild:true },
 	{title:'ROW 4', hasChild:true },
@@ -24,16 +23,6 @@ var uiTable = (function() {
 	// create table view event listener
 	tv.addEventListener('click', function(e)
 	{
-		/*
-		// event data
-		var index = e.index;
-		var section = e.section;
-		var row = e.row;
-		var rowdata = e.rowData;
-		Ti.API.info('detail ' + e.detail);
-		Titanium.UI.createAlertDialog({title:'Table View',message:'row ' + row + ' index ' + index + ' section ' + section  + ' row data ' + rowdata}).show();
-		*/
-		
 		var newWindow = Ti.UI.createWindow({ backgroundColor: '#ccc'});
 		var closeButton = Ti.UI.createButton({ title:'close', width:100, height: 30, top: 30});
 		newWindow.add( closeButton );
@@ -55,8 +44,10 @@ var uiTable = (function() {
   };
   
   return API;
-})(); //end uiTable  
-//Ti.UI.currentWindow.add( uiTable.factoryView({}) ); 
-//uiTable.factoryWindow({}).addChild( uiTable.factoryView({}) ).open({modal:true}); 
+})(); //end uiTable
+Ti.UI.currentWindow.add( uiTable.factoryView({}) );
+//uiTable.factoryWindow({}).open({modal:true});
+//uiTable.factoryWindow({}).open({fullscreen:true});
   
+
 

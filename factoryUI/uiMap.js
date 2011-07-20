@@ -1,19 +1,16 @@
 
+
+
+
+
 var uiMap = (function() {
-  
   var API = { }; 
   
-  API.factoryView = function(opts){ 
+  API.factoryView = function(opts){
+  	
     var topView = Ti.UI.createView({});
     
-    return topView; 
-  };
-  
-  API.factoryWindow = function(opts){ 
-     var win = Ti.UI.createWindow({title:'mapView'}); 
-		
-		
-		var isAndroid = false;
+    var isAndroid = false;
 		if (Titanium.Platform.name == 'android') {
 			isAndroid = true;
 		}
@@ -83,7 +80,7 @@ var uiMap = (function() {
 			mapview.addAnnotation(atlanta);
 		}
 		mapview.selectAnnotation(atlanta);
-		win.add(mapview);
+		topView.add(mapview);
 		
 		//
 		// NAVBAR BUTTONS
@@ -146,6 +143,7 @@ var uiMap = (function() {
 		}		
 		
 		if (!isAndroid) {
+			/*
 			removeAll = Titanium.UI.createButton({
 				style:Titanium.UI.iPhone.SystemButtonStyle.BORDERED,
 				title:'Remove All'
@@ -208,7 +206,10 @@ var uiMap = (function() {
 			wireClickHandlers();
 			
 			win.setToolbar([flexSpace,std,flexSpace,hyb,flexSpace,sat,flexSpace,atl,flexSpace,sv,flexSpace,zoomin,flexSpace,zoomout,flexSpace]);
-		} else {
+			*/
+		}//if iphone 
+		else {
+			
 			var activity = Ti.Android.currentActivity;
 			activity.onCreateOptionsMenu = function(e) {
 				var menu = e.menu;
@@ -224,11 +225,7 @@ var uiMap = (function() {
 				
 				wireClickHandlers();
 			}
-		}
-		
-		//
-		// EVENT LISTENERS
-		//
+		}//else if android
 		
 		// region change event listener
 		mapview.addEventListener('regionChanged',function(evt)
@@ -241,7 +238,7 @@ var uiMap = (function() {
 		// map view click event listener
 		mapview.addEventListener('click',function(evt)
 		{
-		
+			
 			// map event properties
 			var annotation = evt.annotation;
 			var title = evt.title;
@@ -250,7 +247,7 @@ var uiMap = (function() {
 			// custom annotation attribute
 			var myid = (evt.annotation)?evt.annotation.myid:-1;
 		
-			Ti.API.info('mapview click clicksource = ' + clickSource);
+			//Ti.API.info('mapview click clicksource = ' + clickSource);
 			// use custom event attribute to determine if atlanta annotation was clicked
 			if (myid == 3 && evt.clicksource == 'rightButton')
 			{
@@ -261,7 +258,6 @@ var uiMap = (function() {
 				evt.annotation.pincolor = Titanium.Map.ANNOTATION_GREEN;
 				evt.annotation.subtitle = 'Appcelerator used to be near here';
 				evt.annotation.leftButton = 'images/appcelerator_small.png';
-		
 			}
 			if (myid == 2)
 			{
@@ -276,7 +272,7 @@ var uiMap = (function() {
 					annotationAdded=false;
 				}
 			}
-		});
+		});//end mapview.addEventListner('click)
 		
 		// annotation click event listener (same as above except only fires for a given annotation)
 		atlanta.addEventListener('click', function(evt)
@@ -284,7 +280,7 @@ var uiMap = (function() {
 			// get event properties
 			var annotation = evt.source;
 			var clicksource = evt.clicksource;
-			Ti.API.info('atlanta annotation click clicksource = ' + clicksource);
+			//Ti.API.info('atlanta annotation click clicksource = ' + clicksource);
 		});
 		
 		apple.addEventListener('click', function(evt)
@@ -292,16 +288,21 @@ var uiMap = (function() {
 			// get event properties
 			var annotation = evt.source;
 			var clicksource = evt.clicksource;
-			Ti.API.info('apple annotation click clicksource = ' + clicksource);
+			//Ti.API.info('apple annotation click clicksource = ' + clicksource);
 		});
-		
-     return win; 
+    	
+	return topView; 
+  };
+  
+  API.factoryWindow = function(opts)
+  {
+	win = Ti.UI.createWindow({title:'uiMap'});
+   	win.add( API.factoryView( options ) );
+   	return win;
   }; //end factoryWindow
   
   return API;
 })(); //end uiMap
-//Ti.UI.currentWindow.add( uiMap.factoryView({}) ); 
-//uiMap.factoryWindow({}).addChild( uiMap.factoryView({}) ).open({modal:true}); 
-  
- 
-
+Ti.UI.currentWindow.add( uiMap.factoryView({}) ); 
+//uiMap.factoryWindow({}).open({modal:true});
+//uiMap.factoryWindow({}).open({fullscreen:true});
