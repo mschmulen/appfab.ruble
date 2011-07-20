@@ -12,46 +12,22 @@ var uiCharts = (function() {
 		var charts = require('ti.charts');
 		Ti.API.info("module is => " + charts);
 		
-		var chart1 = charts.createChart({
-			top:0,
-			left:0,
-			width:'100%',
-			height:'50%',
-			orientationModes: [
-				Ti.UI.PORTRAIT,
-				Ti.UI.UPSIDE_PORTRAIT,
-				Ti.UI.LANDSCAPE_LEFT,
-				Ti.UI.LANDSCAPE_RIGHT
-			],
-		
+		var chart1 = charts.createChart({ top:0, left:0, width:'100%', height:'50%',
+			
+			orientationModes: [Ti.UI.PORTRAIT,Ti.UI.UPSIDE_PORTRAIT,Ti.UI.LANDSCAPE_LEFT,Ti.UI.LANDSCAPE_RIGHT],
+			
 		    // Configure the title for the chart
-			title: {
-				text:'Bar & Line Chart',
-				color: '#900',
-				font: { fontFamily:'Times New Roman', fontSize:24, fontWeight:'bold', fontStyle:'italic' },
-				location: charts.LOCATION_TOP,
-				offset: { x: 0.0, y: 26.0 }
-			},
+			title: { text:'Bar & Line Chart', color: '#900', font: { fontFamily:'Times New Roman', fontSize:24, fontWeight:'bold', fontStyle:'italic' }, location: charts.LOCATION_TOP, offset: { x: 0.0, y: 26.0 } },
 			
 			// Configure the external padding -- the area between the view edge and the plot area frame
 			padding: { top:52, left:20, right:20, bottom:20 },
 			
 			// Configure the plot area -- the area where the chart is drawn
-			plotArea: {
-				borderRadius: 5.0,
-				borderColor: '#48C',
-				borderWidth: 2.0,
+			plotArea: { borderRadius: 5.0, borderColor: '#48C', borderWidth: 2.0,
 				// Configure the inner padding -- the area between the plot area frame and the actual 
-				padding: {
-			    	top:0.0,
-					left:5.0,
-					right:0.0,
-					bottom:15.0
-				},
+				padding: { top:0.0, left:5.0, right:0.0, bottom:15.0 },
 				
-				// Configure the background for the plat area
-				// backgroundColor: 'blue',
-				// -- or --
+				// Configure the background for the plat area backgroundColor: 'blue',
 				backgroundGradient: { startColor: '#00F', endColor: '#004', angle: -45.0 }
 			},
 			
@@ -135,15 +111,13 @@ var uiCharts = (function() {
 						font: { fontFamily:'Helvetica', fontSize:8 }
 					}
 				},
-				
+			
 			// Configure the plot space mapping. We want the coordinate space to be re-calculated on
 			// all data updates so that all of the data points fit within the chart area. 
 			// Expanding the calculated range by 40% allows for a small amount of space along the
 			// axis so that the plots don't go right up against the edges.
-			plotSpace: {
-				scaleToFit: true,
-				expandRangeByFactor: 1.4
-			},
+			plotSpace: { scaleToFit: true, expandRangeByFactor: 1.4 },
+			
 			// Enable user interaction -- defaults to true
 			userInteraction:true
 		});
@@ -160,23 +134,12 @@ var uiCharts = (function() {
 				Ti.UI.LANDSCAPE_LEFT,
 				Ti.UI.LANDSCAPE_RIGHT
 			],
-		
+			
 		    // Configure the title for the chart
-			title: {
-				text:'Pie Chart',
-				color: '#900',
-				font: { fontFamily:'Times New Roman', fontSize:24, fontWeight:'bold', fontStyle:'italic' },
-				location: charts.LOCATION_TOP,
-				offset: { x: 0.0, y: 26.0 }
-			},
+			title: { text:'Pie Chart', color: '#900', font: { fontFamily:'Times New Roman', fontSize:24, fontWeight:'bold', fontStyle:'italic' }, location: charts.LOCATION_TOP, offset: { x: 0.0, y: 26.0 } },
 			
 			// Configure the external padding -- the area between the view edge and the plot area frame
-			padding: {
-				top:52,
-				left:20,
-				right:20,
-				bottom:20
-			},
+			padding: {top:52, left:20, right:20, bottom:20 },
 			
 			// Configure the plot area -- the area where the chart is drawn
 			plotArea: {
@@ -333,6 +296,10 @@ var uiCharts = (function() {
 })(); //end uiCharts
 //Ti.UI.currentWindow.add( uiCharts.factoryView({}) );
 //uiCharts.factoryWindow({}).open({modal:true});
-//uiCharts.factoryWindow({}).open({fullscreen:true});
+uiCharts.factoryWindow({}).open({fullscreen:true});
+
+
+
+
 
 
