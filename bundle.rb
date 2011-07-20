@@ -460,7 +460,7 @@ command 'charts demo' do |cmd|
   end
 end
 
-#charts demo
+#gears demo
 command 'gears demo' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+="
@@ -478,7 +478,7 @@ command 'gears demo' do |cmd|
 end
 
 
-#charts demo
+#ogl demo
 command 'ogl demo' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+="
@@ -491,6 +491,24 @@ command 'ogl demo' do |cmd|
     input = STDIN.read
     input << "\n"
     input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiOpengl.js")
+    input << "\n"
+  end
+end
+
+
+#quicklook demo
+command 'quicklook demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiQuickLook.js")
     input << "\n"
   end
 end
