@@ -4,6 +4,8 @@
 
 Ti.Opengl = require('Ti.OpenGL');
 
+//var window = Ti.UI.createWindow();
+var window = Ti.UI.currentWindow;
 
 var GearMaker = function(inner_radius, outer_radius, width, teeth, tooth_depth, color_, openGL) {
 	function push3(vx, x, y, z) {
@@ -488,7 +490,7 @@ if (!Array.prototype.map)
 }
 
 
-var window = Ti.UI.createWindow();
+
 
 var Gears = function() {
 	var viewRect = {
@@ -707,6 +709,8 @@ var initialize = function() {
 	TiOpenGLUtil.addComponents(window, Gears.components);
 }
 initialize();
+
+
 window.open();
 
 
