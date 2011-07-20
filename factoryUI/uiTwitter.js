@@ -1,13 +1,13 @@
 
-
-
 var uiTwitter = (function() {
   	
   	var API = { };
   	
+  	API.twitterName = 'appcelerator';
+  	
   	API.factoryView = function(opts){
   		
-    	var topView = Ti.UI.createView({});
+    	topView = Ti.UI.createView({});
 		
 		function getTweets(screen_name){
 			
@@ -305,9 +305,8 @@ var uiTwitter = (function() {
 			day_diff < 31 && Math.ceil( day_diff / 7 ) + " week" + ((Math.ceil( day_diff / 7 )) == 1 ? "" : "s") + " ago";
 		}
 		// Get the tweets for 'twitter_name'
-		getTweets(twitter_name);
+		getTweets(API.twitterName);
 		
-		topView.add( imageView );
     	return topView;
  	};//end factoryView
   	
@@ -319,10 +318,11 @@ var uiTwitter = (function() {
 	
   	return API;
 })(); //end uiTwitter
-//Ti.UI.currentWindow.add( uiTwitter.factoryView({}) ); 
-//uiTwitter.factoryWindow({}).addChild( uiTwitter.factoryView({}) ).open({modal:true}); 
+Ti.UI.currentWindow.add( uiTwitter.factoryView({}) ); 
+//uiTwitter.factoryWindow({}).open({modal:true});
+//uiTwitter.factoryWindow({}).open({fullscreen:true});
 
-  
+
 
 
 
