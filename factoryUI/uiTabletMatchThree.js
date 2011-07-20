@@ -1,44 +1,87 @@
 
-var uiTabletMatchThree = (function() {
+var uiMatchThree = (function() {
   	
-  	var API = { }; 
+  	var API = { };
+  	
+  	API.currentScore = 0;
   	
   	API.backgroundImage = 'assets/images/background/background1.png';
 	
 	API.badgeDataSocial = {
 		"maxIndex":5,
 		"badge": [
-			{ image:'assets/images/socialIcons/social1.png', name:'badge1'},
-			{ image:'assets/images/socialIcons/social2.png', name:'badge2'},
-			{ image:'assets/images/socialIcons/social3.png', name:'badge3'},
-			{ image:'assets/images/socialIcons/social4.png', name:'badge4'},
-			{ image:'assets/images/socialIcons/social5.png', name:'badge5'},
-			{ image:'assets/images/socialIcons/social6.png', name:'badge6'}
-		]
+				{ image:'assets/images/socialIcons/social1.png', name:'badge1'},
+				{ image:'assets/images/socialIcons/social2.png', name:'badge2'},
+				{ image:'assets/images/socialIcons/social3.png', name:'badge3'},
+				{ image:'assets/images/socialIcons/social4.png', name:'badge4'},
+				{ image:'assets/images/socialIcons/social5.png', name:'badge5'},
+				{ image:'assets/images/socialIcons/social6.png', name:'badge6'}
+			]
 	};//end badgeData
 	
-	API.badgeDataSuper = {
-		"maxIndex":5,
-		"badge": [
-			{ image:'assets/images/superLogo/batman.png', name:'Batman'},
-			{ image:'assets/images/superLogo/fireStorm.png', name:'Fire Storm'},
-			{ image:'assets/images/superLogo/flash.png', name:'The Flash'},
-			{ image:'assets/images/superLogo/ironMan.png', name:'Iron Man'},
-			{ image:'assets/images/superLogo/spiderman.png', name:'Spider Man'},
-			{ image:'assets/images/superLogo/superman.png', name:'Super Man'}
+	//http://thekruser.com/media/4sq/badges/mtv_vmas_big.png
+	
+	API.messageWin = Titanium.UI.createWindow({
+		height:30,
+		width:250,
+		bottom:70,
+		borderRadius:10,
+		touchEnabled:false,
+	
+		orientationModes : [
+		Titanium.UI.PORTRAIT,
+		Titanium.UI.UPSIDE_PORTRAIT,
+		Titanium.UI.LANDSCAPE_LEFT,
+		Titanium.UI.LANDSCAPE_RIGHT,
 		]
-	};//end badgeData
+	});
+	API.messageView = Titanium.UI.createView({
+		id:'messageview',
+		height:30,
+		width:250,
+		borderRadius:10,
+		backgroundColor:'#000',
+		opacity:0.7,
+		touchEnabled:false
+	});
 	
-	API.artSocial = badgeDataSocial;
-	API.artSuper = badgeDataSuper;	
+	API.messageLabel = Titanium.UI.createLabel({
+		id:'messagelabel',
+		text:'',
+		color:'#fff',
+		width:250,
+		height:'auto',
+		font:{
+			fontFamily:'Helvetica Neue',
+			fontSize:13
+		},
+		textAlign:'center'
+	});
+	API.messageWin.add(API.messageView);
+	API.messageWin.add(API.messageLabel);
 	
-    
+	
+	API.showMessage = function ( message )
+	{
+		API.messageLabel.text = message;
+		API.messageWin.open();
+		setTimeout(function()
+		{
+			API.messageWin.close({opacity:0,duration:500});
+		},1000);
+	};//end showMessage
+	
+	API.scorePoints = function( points)
+	{
+		API.currentScore += points;
+		Ti.API.info( API.currentScore );
+		API.showMessage(' SCORE ' + points);
+	}; //end ScorePoints
+	
   	API.factoryView = function( options )
 	{
-		
 		Ti.API.info( 'options:' +  options );
-		var badgeData = API.artSocial;
-		if ( options.art ) { Ti.API.info('options.art == true'); badgeData = options.art; }
+		var badgeData = API.badgeDataSocial;
 		
 		var selectedColor = 'red';
 		var unSelectedColor = 'white';
@@ -75,7 +118,7 @@ var uiTabletMatchThree = (function() {
 					}//end if
 				}//end for
 			}//end for
-
+			
 			if (was) {FindVariants();}
 			
 		};
@@ -102,6 +145,7 @@ var uiTabletMatchThree = (function() {
 		
 		function initGame()
 		{
+			
 			//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 			//Initialize
 			for (var i=0;i<dimX;i++) {//for (var i=0;i<dimX;i++) {
@@ -117,7 +161,7 @@ var uiTabletMatchThree = (function() {
 					arenaView.add(sView);
 					
 					sView.addEventListener('click', function(e){
-						if ( true ) //e.source.deleted == false
+						if ( true /*e.source.deleted == false*/ )
 						{
 							if (e.source == selectedCell) {
 								e.source.borderColor = unSelectedColor;
@@ -202,6 +246,7 @@ var uiTabletMatchThree = (function() {
 							GetItem(i+2,j).deleted = true;
 							hasVariants = true;
 							score++;
+							API.scorePoints( score );
 					}//end if
 					if (j<dimY-2 && GetEnum(i,j)==GetEnum(i,j+1) && GetEnum(i,j)==GetEnum(i,j+2)) {
 						GetItem(i,j).deleted = true;
@@ -209,6 +254,7 @@ var uiTabletMatchThree = (function() {
 						GetItem(i,j+2).deleted = true;
 						hasVariants = true;
 						score++;
+						API.scorePoints( score );
 					}//end if
 				}//end for dimY
 			}//end for dimX
@@ -260,17 +306,19 @@ var uiTabletMatchThree = (function() {
 		//Initialize
 		initGame();
 		
+		
 		return arenaView;
 	}//end factoryView
 	
 	API.factoryWindow = function( options )
 	{
-		var win = Ti.UI.createWindow({title:'chess'});
-		win.addChild( API.factoryView( options ) );
+		var win = Ti.UI.createWindow({title:'Match Three'});
+		win.add( API.factoryView( options ) );
 		return win;
 	}//end factoryWindow
 	
   return API;
-})(); //end uiTabletMatchThree
-//Ti.UI.currentWindow.add( uiTabletMatchThree.factoryView({}) );
-//uiTabletMatchThree.factoryWindow({}).addChild( uiTabletMatchThree.factoryView({}) ).open({modal:true});
+})(); //end uiMatchThree
+Ti.UI.currentWindow.add( uiMatchThree.factoryView({}) );
+//uiMatchThree.factoryWindow({}).open({modal:true});
+

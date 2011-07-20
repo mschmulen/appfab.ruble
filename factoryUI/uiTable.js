@@ -5,13 +5,13 @@ var uiTable = (function() {
   var API = { }; 
   
   API.data = [
-	{title:'ROW 1 ', hasDetail:true, color:'blue', selectedColor:'#fff'},
-	{title:'ROW 2', hasDetail:true, color:'blue', selectedColor:'#fff'},
-	{title:'ROW 3', hasDetail:true, color:'blue', selectedColor:'#fff'},
-	{title:'ROW 4', hasDetail:true, color:'blue', selectedColor:'#fff'},
-	{title:'ROW 5', hasDetail:true, color:'blue', selectedColor:'#fff'},
-	{title:'ROW 6', hasDetail:true, color:'blue', selectedColor:'#fff'},
-	{title:'ROW 7', hasDetail:true, color:'blue', selectedColor:'#fff'}
+	{title:'ROW 1 ', hasChild:true },
+	{title:'ROW 2', hasChild:true },
+	{title:'ROW 3', hasChild:true },
+	{title:'ROW 4', hasChild:true },
+	{title:'ROW 5', hasChild:true },
+	{title:'ROW 6', hasChild:true },
+	{title:'ROW 7', hasChild:true }
 	];
   
   API.factoryView = function(opts){ 
