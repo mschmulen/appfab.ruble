@@ -304,23 +304,6 @@ end
 # COMMAND+4 MODEL Factories
 # ********************************************************
 
-command 'model Twitter' do |cmd|
-  #cmd.scope = '*.js'
-  cmd.key_binding = "Control+4"
-  cmd.key_binding.mac = "Command+4"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
-  
-  cmd.output = :insert_as_snippet
-  cmd.input = :selection, :line
-  cmd.invoke do |context|
-    
-    input = STDIN.read
-    input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModel/modelSQLITE.js")
-    input << "\n"
-  end
-end
-
 command 'model SQLITE' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+4"
