@@ -3,7 +3,7 @@ var uiSplash = (function() {
   var API = { }; 
   
   API.factoryView = function(opts){ 
-    var topView = Ti.UI.createView({});
+    topView = Ti.UI.createView({});
     
     var imageView = Titanium.UI.createImageView({
 		image:'http://www.appcelerator.com/wp-content/uploads/2009/06/titanium_desk.png',
@@ -17,7 +17,7 @@ var uiSplash = (function() {
   };
   
   API.factoryWindow = function(options){
-     var win = Ti.UI.createWindow({title:'Splash'}); 
+     win = Ti.UI.createWindow({title:'Splash'}); 
      win.add( API.factoryView( options ) ); 
      return win; 
   };
