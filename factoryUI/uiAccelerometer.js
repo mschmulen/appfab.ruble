@@ -1,13 +1,11 @@
 
-
 //gist reference https://gist.github.com/980774
-
-
 var uiAccelerometer = (function() {
   
   var API = { }; 
-  
+   
   API.factoryView = function(opts){
+  	
     var topView = Ti.UI.createView({});
 	
 	var isRecording = false, // Are we sampling data?
@@ -124,7 +122,6 @@ var uiAccelerometer = (function() {
 	  }
 	});
 	
-	topView.add( imageView );
     return topView; 
   };
   
@@ -136,9 +133,10 @@ var uiAccelerometer = (function() {
   
   return API;
 })(); //end uiAccelerometer
-//Ti.UI.currentWindow.add( uiAccelerometer.factoryView({}) ); 
-//uiAccelerometer.factoryWindow({}).addChild( uiAccelerometer.factoryView({}) ).open({modal:true}); 
-  
+
+Ti.UI.currentWindow.add( uiAccelerometer.factoryView({}) );
+//uiAccelerometer.factoryWindow({}).open({modal:true});
+//uiAccelerometer.factoryWindow({}).open({fullscreen:true});
 
 
 
