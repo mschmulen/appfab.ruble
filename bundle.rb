@@ -52,12 +52,31 @@ end
 # COMMAND+1  
 # ********************************************************
 
-#closures
-command 'js encapsulate' do |cmd|
-  #cmd.scope = '*.js'
+command 'gist MAKE' do |cmd|
   cmd.key_binding = "Control+1"
   cmd.key_binding.mac = "Command+1"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :output_to_console
+  cmd.input = :selection
+  cmd.invoke do |context|
+    
+    selection = ENV['TM_SELECTED_TEXT']
+    
+    res = Net::HTTP.post_form(URI.parse('http://gist.github.com/api/v1/json/new'),
+      { 'files[#{fileName}]' => selection,
+        'login' => 'USER NAME HERE',
+        'token' => 'API TOKEN HERE',
+        'description' => 'This is a test description'
+        })
+    
+    context.browser.open("http://gist.github.com/mine", :browser => :default)
+    
+  end
+end
+
+command 'Ti WinX TabX' do |cmd|
+  cmd.key_binding = "Control+1"
+  cmd.key_binding.mac = "Command+1"
   
   cmd.output = :insert_as_snippet
   cmd.input = :selection, :line
@@ -66,49 +85,29 @@ command 'js encapsulate' do |cmd|
     className = STDIN.read
     input = STDIN.read
     
-    input << "var " + className + " = (function() {\n"
-    input << "  \n"
-    input << "  var API = { }; \n"
-    input << "  \n"
-    input << "  var myPrivateVar ='private'; \n"
-    input << "  function myPrivateFunction(){  };\n "
-    input << "  \n"
-    input << "  API.myPublicVar = 'hello' \n"
-    input << "  \n"
-    input << "  API.factoryView"+className+" = function(opts){ \n"
-    input << "    var topView = Ti.UI.createView({});\n"
-    input << "    \n"
-    input << "    return topView; \n"
-    input << "  };\n"
-    input << "  \n"    
-    input << "  API.factoryWindow"+className+" = function(opts){ \n"
-    input << "     var win = Ti.UI.createWindow({title:'"+className+"'}); \n"
-    input << "     win.addChild( factoryView"+className+"( options ) ); \n"
-    input << "     return win; \n"
-    input << "  };\n"
-    input << "  \n"
-    input << "  return API;\n"
-    input << "})(); //end " + className
-    input << "  \n"
-    input << "//Ti.UI.currentWindow.add( "+className+".factoryView"+className+"({}) ); \n"
-    input << "//"+className+".factoryWindow"+className+"({}).addChild( "+className+".factoryView"+className+"({}) ).open({modal:true}); \n"
-    input << "  \n"
+    input << "var win"+className+" = Titanium.UI.createWindow({   \n"
+    input << "  title:'"+className+"', \n"
+    input << "  url:'"+className+".js', \n"
+    input << "  backgroundColor:'#fff'  \n"
+    input << "}); \n"
     
-  end
+    input << "var tab"+className+" = Titanium.UI.createTab({   \n"
+    input << "  icon:'KS_nav_views.png',  \n"
+    input << "  title:'"+className+"', \n"
+    input << "  window:win"+className+" \n"
+    input << "});  \n"
+    input << "\n"
+    input << "tabGroup.addTab(tab"+className+");\n"
+  end  
 end
-
-
 
 # ********************************************************
 # COMMAND+2  MACROS that wrap the currently selected text
 # ********************************************************
 
-# X_WIN X_TAB X_.js
-command 'MACRO WinVAR + TabVAR' do |cmd|
-  #cmd.scope = '*.js'
+command 'Ti WinX TabX' do |cmd|
   cmd.key_binding = "Control+2"
   cmd.key_binding.mac = "Command+2"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
   
   cmd.output = :insert_as_snippet
   cmd.input = :selection, :line
@@ -134,7 +133,7 @@ command 'MACRO WinVAR + TabVAR' do |cmd|
 end
 
 #uiTemplate
-command 'MACRO uiVAR' do |cmd|
+command 'uiTemplate' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+2"
   cmd.key_binding.mac = "Command+2"
@@ -177,6 +176,40 @@ command 'MACRO uiVAR' do |cmd|
     input << "  \n"
   end
 end
+
+# X_WIN X_TAB X_.js
+command 'file.js MACRO WinVAR + TabVAR' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+2"
+  cmd.key_binding.mac = "Command+2"
+  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    className = STDIN.read
+    input = STDIN.read
+    
+    input << "var win"+className+" = Titanium.UI.createWindow({   \n"
+    input << "  title:'"+className+"', \n"
+    input << "  url:'"+className+".js', \n"
+    input << "  backgroundColor:'#fff'  \n"
+    input << "}); \n"
+    
+    input << "var tab"+className+" = Titanium.UI.createTab({   \n"
+    input << "  icon:'KS_nav_views.png',  \n"
+    input << "  title:'"+className+"', \n"
+    input << "  window:win"+className+" \n"
+    input << "});  \n"
+    input << "\n"
+    input << "tabGroup.addTab(tab"+className+");\n"
+    
+    #add the file to the Resources folder className+'.js'
+    
+  end
+end
+
 
 # ********************************************************
 # COMMAND+3 UI Factories
@@ -233,11 +266,9 @@ command 'uiSplash' do |cmd|
   end
 end
 
-command 'uiTwitter' do |cmd|
-  #cmd.scope = '*.js'
+command 'uiTwitterTable' do |cmd|
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
   
   cmd.output = :insert_as_snippet
   cmd.input = :selection, :line
@@ -245,16 +276,14 @@ command 'uiTwitter' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTwitter.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTwitterTable.js")
     input << "\n"
   end
 end
 
 command 'uiChess' do |cmd|
-  #cmd.scope = '*.js'
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
   
   cmd.output = :insert_as_snippet
   cmd.input = :selection, :line
@@ -267,11 +296,24 @@ command 'uiChess' do |cmd|
   end
 end
 
-command 'uiTemplate' do |cmd|
-  #cmd.scope = '*.js'
+command 'uiNav' do |cmd|
   cmd.key_binding = "Control+3"
   cmd.key_binding.mac = "Command+3"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiNav.js")
+    input << "\n"
+  end
+end
+
+command 'uiTemplate' do |cmd|
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
   
   cmd.output = :insert_as_snippet
   cmd.input = :selection, :line
@@ -284,16 +326,28 @@ command 'uiTemplate' do |cmd|
   end
 end
 
+command 'requireTemplate' do |cmd|
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/requireTemplate.js")
+    input << "\n"
+  end
+end
 
 # ********************************************************
 # COMMAND+4 MODEL Factories
 # ********************************************************
 
 command 'model SQLITE' do |cmd|
-  #cmd.scope = '*.js'
   cmd.key_binding = "Control+4"
   cmd.key_binding.mac = "Command+4"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
   
   cmd.output = :insert_as_snippet
   cmd.input = :selection, :line
@@ -322,8 +376,60 @@ end
 
 
 # ********************************************************
-# COMMAND+9
+# COMMAND+9  PULL FROM GIST'S
 # ********************************************************
+
+
+command 'OPEN THIS FILE' do |cmd|
+  cmd.key_binding = "Control+9"
+  cmd.key_binding.mac = "Command+9"
+  
+  cmd.output = :discard
+  cmd.input = :none
+  cmd.invoke do |context|
+    require 'uri'
+    url = "file:#{URI.escape(ENV['TM_FILEPATH'])}"
+    context.browser.open(url, :browser => :default)
+  
+  end
+end
+
+command 'ls' do |cmd|
+  cmd.key_binding = "Control+9"
+  cmd.key_binding.mac = "Command+9"
+  
+  cmd.output = :output_to_console
+  cmd.invoke do |context|
+    `pwd`
+    #`ls ~/Users/username`
+  end
+  
+end
+
+
+
+# figure out which repository this is
+# assumes it's a bare repository
+#repository = /([^\/]*?)\.git$/.match(`pwd`.chomp)[1]
+
+# get the stdins from git
+#stdins = []; stdins << $_ while gets
+
+#stdins.each do |str|
+  # parse the stdin string
+  #arr = str.split
+  #refs = arr[2].split('/')
+  
+  # what we're really after
+  #oldrev   = arr[0] # SHA
+  #newrev   = arr[1] # SHA
+  #ref_type = refs[1] # tags || heads (branch)
+  #ref_name = refs[2] # develop, 1.4 etc.
+  
+  # now do whatcha gotta do
+#end
+
+
 
 
 # ********************************************************
@@ -560,8 +666,10 @@ end
 # Project templates: Titanium Mobile Project Templates
 # ********************************************************
 
-project_template "Tab fab github" do |t|
+#https://github.com/mschmulen/tiTemplateTab
+project_template "fab Tab github" do |t|
   t.type = :titanium_mobile
+  #t.location = "git://github.com/mschmulen/tiTemplateTab.git"
   t.location = "git://github.com/mschmulen/tiTemplateTab.git"
   t.description = "Remote template. Requires network access."
 end
