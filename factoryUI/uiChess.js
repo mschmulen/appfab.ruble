@@ -1,4 +1,5 @@
 
+//https://gist.github.com/980224
 var uiChess = (function() {
   	
   	var API = { }; 
@@ -79,31 +80,15 @@ var uiChess = (function() {
 		return topView;
 	}//end factoryView
 	
-	/*
-	API.postToTwitter( twitterName, chessMove, GameID )
-	{
-		GameName = '#TiChess';
-		GameUID = 222;
-		twitterName = 'mattschmulen';
-		chessMove = 'Bxg6';
-		//Game: 2902: @rodjul has moved 9..Bd3. 12 hours left to vote at http://chesstweets.com/games/2902 What's Black's next move?
-	}//end postToTwitter
-	
-	API.checkForCurrentGames( myTwitterName )
-	{
-		//qu
-	}//end checkForGame
-	*/
-	
 	API.factoryWindow = function( options )
 	{
 		win = Ti.UI.createWindow({title:'chess'});
-		win.addChild( API.factoryView( options ) );
+		win.add( API.factoryView( options ) );
 		return win;
 	}//end factoryWindow
 	
   return API;
 })(); //end uiChess
-Ti.UI.currentWindow.add( uiChess.factoryView({}) ); 
+Ti.UI.currentWindow.add( uiChess.factoryView({}) );
 //uiChess.factoryWindow({}).open({modal:true});
 //uiChess.factoryWindow({}).open({fullscreen:true});
