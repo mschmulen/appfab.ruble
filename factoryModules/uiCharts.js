@@ -1,5 +1,5 @@
 
-//<module version="1.0">ti.charts</module>
+//<module platform="iphone" version="1.0">ti.charts</module>
 
 var uiCharts = (function() {
   	

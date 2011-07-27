@@ -1,5 +1,5 @@
 
-//<module version="1.0">ti.quicklook</module>
+//<module platform="iphone" version="1.0">ti.quicklook</module>
 var uiQuickLook = (function() {
   	
   	var API = { }; 

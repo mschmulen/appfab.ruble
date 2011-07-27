@@ -1,4 +1,4 @@
-//<module version="1.0">ti.paint</module>
+//<module platform="iphone" version="1.0">ti.paint</module>
 var uiPaint = (function() {
   	
 	var API = { };

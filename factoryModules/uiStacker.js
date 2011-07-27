@@ -1,5 +1,5 @@
 
-//<module version="0.1">ti.box2d</module>
+//<module platform="iphone" version="0.1">ti.box2d</module>
 
 var uiStacker = (function() {
   	

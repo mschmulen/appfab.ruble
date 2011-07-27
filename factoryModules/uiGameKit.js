@@ -1,5 +1,5 @@
 
-//<module version="1.0">ti.gamekit</module>
+//<module platform="iphone" version="1.0">ti.gamekit</module>
 
 var uiGameKit = (function() {
   	

@@ -1,6 +1,6 @@
 
 
-//<module version="1.0">ti.opengl</module>
+//<module platform="iphone" version="1.0">ti.opengl</module>
 
 Ti.Opengl = require('Ti.OpenGL');
 
