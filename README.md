@@ -3,12 +3,14 @@ APP FAB Titanium Studio Ruble for Titanium Mobile
 
 APP FAB Titanium Studio ruble developed by Matt Schmulen.
 
-What does APP FAB do
-* Facilitate doing AMAZING Live Titanium DEMO’s
-* Rapid Prototyping in Titanium
-* IDE Sugar
+What does APP FAB does
+
+- Facilitate doing AMAZING Live Titanium DEMO’s
+- Rapid Prototyping in Titanium
+- IDE Sugar
 
 How to install:
+
 ~~~
 1. Install Titanium studio from appcelerator
 1. cd to the Aptana rubles folder ( default location: cd /Users/username/Documents/Aptana Rubles/ )
