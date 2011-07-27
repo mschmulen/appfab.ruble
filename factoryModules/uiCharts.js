@@ -294,9 +294,9 @@ var uiCharts = (function() {
 	
   return API;
 })(); //end uiCharts
-//Ti.UI.currentWindow.add( uiCharts.factoryView({}) );
+Ti.UI.currentWindow.add( uiCharts.factoryView({}) );
 //uiCharts.factoryWindow({}).open({modal:true});
-uiCharts.factoryWindow({}).open({fullscreen:true});
+//uiCharts.factoryWindow({}).open({fullscreen:true});
 
 
 

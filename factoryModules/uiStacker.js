@@ -79,8 +79,8 @@ var uiStacker = (function() {
 	
   return API;
 })(); //end uiStacker
-//Ti.UI.currentWindow.add( uiStacker.factoryView({}) );
+Ti.UI.currentWindow.add( uiStacker.factoryView({}) );
 //uiStacker.factoryWindow({}).open({modal:true});
-uiStacker.factoryWindow({}).open({fullscreen:true});
+//uiStacker.factoryWindow({}).open({fullscreen:true});
 
 

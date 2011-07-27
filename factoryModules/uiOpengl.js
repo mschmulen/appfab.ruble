@@ -710,8 +710,29 @@ var initialize = function() {
 }
 initialize();
 
-
-window.open();
-
+//window.open();
 
 
+/*
+ * 
+ 
+	var textureFile = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, '/assets/my_texture_filepvrtc');
+	
+	
+ texture = view.glGenTextures(1);
+
+       view.glBindTexture(Ti.Opengl.GL_TEXTURE_2D, texture[0]);
+       view.glTexParameteri(Ti.Opengl.GL_TEXTURE_2D,Ti.Opengl.GL_TEXTURE_MIN_FILTER,Ti.Opengl.GL_LINEAR);
+       view.glTexParameteri(Ti.Opengl.GL_TEXTURE_2D,Ti.Opengl.GL_TEXTURE_MAG_FILTER,Ti.Opengl.GL_LINEAR);
+       view.glCompressedTexImage2D(Ti.Opengl.GL_TEXTURE_2D, 0, Ti.Opengl.GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG, 512, 512, 0, textureFile);
+
+	module supports
+  ES 1.1& ES 2.0
+
+  ES 1.1 maps to OGL 1.5
+
+* */
+       
+       
+       
+       
