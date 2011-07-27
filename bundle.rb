@@ -60,6 +60,9 @@ command 'gist MAKE' do |cmd|
   cmd.input = :selection
   cmd.invoke do |context|
     
+    require 'net/http'
+    require 'uri' 
+    
     selection = ENV['TM_SELECTED_TEXT']
     
     res = Net::HTTP.post_form(URI.parse('http://gist.github.com/api/v1/json/new'),
@@ -68,6 +71,8 @@ command 'gist MAKE' do |cmd|
         'token' => 'API TOKEN HERE',
         'description' => 'This is a test description'
         })
+    
+    CONSOLE.puts "GIST RES:" + res.body
     
     context.browser.open("http://gist.github.com/mine", :browser => :default)
     
@@ -99,6 +104,50 @@ command 'Ti WinX TabX' do |cmd|
     input << "\n"
     input << "tabGroup.addTab(tab"+className+");\n"
   end  
+end
+
+#uiTemplate
+command 'uiTemplate' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+1"
+  cmd.key_binding.mac = "Command+1"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    className = STDIN.read
+    input = STDIN.read
+    
+    input << "var ui" + className + " = (function() {\n"
+    input << "  \n"
+    input << "  var API = { }; \n"
+    input << "  \n"
+    input << "  var myPrivateVar ='private'; \n"
+    input << "  function myPrivateFunction(){  };\n "
+    input << "  \n"
+    input << "  API.myPublicVar = 'hello' \n"
+    input << "  \n"
+    input << "  API.factoryView = function(opts){ \n"
+    input << "    topView = Ti.UI.createView({});\n"
+    input << "    \n"
+    input << "    return topView; \n"
+    input << "  };\n"
+    input << "  \n"    
+    input << "  API.factoryWindow = function(opts){ \n"
+    input << "     win = Ti.UI.createWindow({title:'ui"+className+"'}); \n"
+    input << "     win.addChild( factoryView( options ) ); \n"
+    input << "     return win; \n"
+    input << "  };\n"
+    input << "  \n"
+    input << "  return API;\n"
+    input << "})(); //end ui" + className
+    input << "  \n"
+    input << "Ti.UI.currentWindow.add( ui"+className+".factoryView({}) ); \n"
+    input << "//ui"+className+".factoryWindow({}).open({modal:true})\n"
+    input << "//ui"+className+".factoryWindow({}).open({fullscreen:true})\n"
+    input << "  \n"
+  end
 end
 
 # ********************************************************
