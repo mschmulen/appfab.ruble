@@ -23,12 +23,6 @@ end
 # Snippets: 
 # ********************************************************
 
-# insert some code
-#snippet "My Insert Snippet" do |snip|
-#  snip.trigger = "foo"
-#  snip.expansion = "snippet code to be inserted"
-#end
-
 # execute a shell command
 #snippet "My shell Snippet" do |s|
 #  s.trigger = "foo"
@@ -52,7 +46,7 @@ end
 # COMMAND+1  
 # ********************************************************
 
-command 'gist MAKE' do |cmd|
+command 'gist POST' do |cmd|
   cmd.key_binding = "Control+1"
   cmd.key_binding.mac = "Command+1"
   
@@ -61,7 +55,7 @@ command 'gist MAKE' do |cmd|
   cmd.invoke do |context|
     
     require 'net/http'
-    require 'uri' 
+    require 'uri'
     
     selection = ENV['TM_SELECTED_TEXT']
     
@@ -422,8 +416,6 @@ end
 # COMMAND+7 
 # ********************************************************
 
-
-
 # ********************************************************
 # COMMAND+9  PULL FROM GIST'S
 # ********************************************************
@@ -456,33 +448,8 @@ command 'ls' do |cmd|
 end
 
 
-
-# figure out which repository this is
-# assumes it's a bare repository
-#repository = /([^\/]*?)\.git$/.match(`pwd`.chomp)[1]
-
-# get the stdins from git
-#stdins = []; stdins << $_ while gets
-
-#stdins.each do |str|
-  # parse the stdin string
-  #arr = str.split
-  #refs = arr[2].split('/')
-  
-  # what we're really after
-  #oldrev   = arr[0] # SHA
-  #newrev   = arr[1] # SHA
-  #ref_type = refs[1] # tags || heads (branch)
-  #ref_name = refs[2] # develop, 1.4 etc.
-  
-  # now do whatcha gotta do
-#end
-
-
-
-
 # ********************************************************
-# COMMAND+=     Titanium + Module short cuts.
+# COMMAND +=     Titanium + Module short cuts.
 # ********************************************************
 
 #PayPal button
@@ -632,13 +599,10 @@ end
 
 
 
-
-
 # ********************************************************
 # ********************************************************
 # ********************************************************
 # ********************************************************
-
 
 
 command 'open in browser' do |cmd|
@@ -736,13 +700,13 @@ end
 #   t.description = "A basic tab template which includes app.js and MAIN.js file"
 # end
 
+
+
+
 # ********************************************************
 # File templates: Titanium Mobile Javascript Templates
 # ********************************************************
 
-
-
-# FACTORY templates
 template "factory uiChess" do |t|
   t.filetype = "*.js"
   t.invoke do |context|
@@ -783,22 +747,21 @@ template "factory uiTwitter" do |t|
   t.filetype = "*.js"
   t.invoke do |context|
     ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
-    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTwitter.js")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTwitterTable.js")
     raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
   end
 end
 
 
 # MODEL TEMPLATES
-template "factory modelTwitter" do |t|
-  t.filetype = "*.js"
-  t.invoke do |context|
-    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
-    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModel/modelTwitter.js")
-    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
-  end
-end
-
+# template "factory modelTwitter" do |t|
+#   t.filetype = "*.js"
+#   t.invoke do |context|
+#     ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+#     raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModel/modelTwitter.js")
+#     raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+#   end
+# end
 
 template "factory modelSQLITE" do |t|
   t.filetype = "*.js"
@@ -808,4 +771,70 @@ template "factory modelSQLITE" do |t|
     raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
   end
 end
+
+
+#### MODULES
+template "factory uiCharts" do |t|
+  t.filetype = "*.js"
+  t.invoke do |context|
+    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiCharts.js")
+    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+  end
+end
+
+template "factory uiGameKit" do |t|
+  t.filetype = "*.js"
+  t.invoke do |context|
+    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiGameKit.js")
+    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+  end
+end
+
+template "factory Gears" do |t|
+  t.filetype = "*.js"
+  t.invoke do |context|
+    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiGears.js")
+    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+  end
+end
+
+template "factory uiOpengl" do |t|
+  t.filetype = "*.js"
+  t.invoke do |context|
+    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiOpengl.js")
+    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+  end
+end
+
+template "factory uiPaint" do |t|
+  t.filetype = "*.js"
+  t.invoke do |context|
+    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiPaint.js")
+    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+  end
+end
+
+template "factory uiQuickLook" do |t|
+  t.filetype = "*.js"
+  t.invoke do |context|
+    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiQuickLook.js")
+    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+  end
+end
+
+template "factory uiStacker" do |t|
+  t.filetype = "*.js"
+  t.invoke do |context|
+    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiStacker.js")
+    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+  end
+end
+
 
