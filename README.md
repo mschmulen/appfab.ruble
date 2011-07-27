@@ -1,9 +1,9 @@
-APP FAB Titanium Studio Ruble for Titanium Mobile
+appfab Titanium Studio Ruble for Titanium Mobile
 ==========================================
 
-APP FAB Titanium Studio ruble developed by Matt Schmulen.
+appfab Titanium Studio ruble developed by Matt Schmulen.
 
-What does APP FAB does
+What does appfab does
 
 - Facilitate doing AMAZING Live Titanium DEMO’s
 - Rapid Prototyping in Titanium
