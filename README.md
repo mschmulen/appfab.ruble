@@ -15,7 +15,7 @@ How to install:
 1. Install Titanium studio from appcelerator
 1. cd to the Aptana rubles folder ( default location: cd /Users/username/Documents/Aptana Rubles/ )
 1. git clone the repo ( git clone git@github.com:mschmulen/appfab.ruble.git )
-1. Restart Titanium Studio
+1. Restart Titanium Studio.
 
 ~~~
 
