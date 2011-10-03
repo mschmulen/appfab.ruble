@@ -4,7 +4,7 @@ bundle do |bundle|
   bundle.display_name = 'APPFAB'
   bundle.name = "Application Fabricator for Titanium"
   bundle.author = "Matt Schmulen"
-#  bundle.repository = "git://github.com/aptana/rails.ruble.git"
+  #bundle.repository = "git://github.com/mschmulen/appfab.ruble.git"
     
     bundle.menu "Titanium APPFAB" do | fabricator_menu|
       fabricator_menu.scope = [ "app.js", "*.js"]
@@ -43,7 +43,7 @@ end
 
 
 # ********************************************************
-# COMMAND+1  
+# COMMAND+1 
 # ********************************************************
 
 command 'gist POST' do |cmd|
@@ -84,20 +84,10 @@ command 'Ti WinX TabX' do |cmd|
     className = STDIN.read
     input = STDIN.read
     
-    input << "var win"+className+" = Titanium.UI.createWindow({   \n"
-    input << "  title:'"+className+"', \n"
-    input << "  url:'"+className+".js', \n"
-    input << "  backgroundColor:'#fff'  \n"
-    input << "}); \n"
-    
-    input << "var tab"+className+" = Titanium.UI.createTab({   \n"
-    input << "  icon:'KS_nav_views.png',  \n"
-    input << "  title:'"+className+"', \n"
-    input << "  window:win"+className+" \n"
-    input << "});  \n"
-    input << "\n"
+    input << "var win"+className+" = Titanium.UI.createWindow({ title:'"+className+"',  backgroundColor:'#fff', url:'"+className+".js' }); \n"
+    input << "var tab"+className+" = Titanium.UI.createTab({ icon:'KS_nav_views.png', title:'"+className+"', window:win"+className+" });  \n"
     input << "tabGroup.addTab(tab"+className+");\n"
-  end  
+  end
 end
 
 #uiTemplate
@@ -143,6 +133,22 @@ command 'uiTemplate' do |cmd|
     input << "  \n"
   end
 end
+
+command 'APP.AssetPath' do |cmd|
+  cmd.key_binding = "Control+1"
+  cmd.key_binding.mac = "Command+1"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    className = STDIN.read
+    input = STDIN.read
+    
+    input << "APP.AssetPath("+className+")"
+  end  
+end
+
 
 # ********************************************************
 # COMMAND+2  MACROS that wrap the currently selected text
@@ -579,7 +585,6 @@ command 'ogl demo' do |cmd|
   end
 end
 
-
 #quicklook demo
 command 'quicklook demo' do |cmd|
   #cmd.scope = '*.js'
@@ -596,6 +601,93 @@ command 'quicklook demo' do |cmd|
     input << "\n"
   end
 end
+
+#pageFlip demo
+command 'pageflip demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiPageFlip.js")
+    input << "\n"
+  end
+end
+
+#barcode demo
+command 'barcode demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiBardcodeReader.js")
+    input << "\n"
+  end
+end
+
+#pageFlip demo
+command 'sms demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uisms.js")
+    input << "\n"
+  end
+end
+
+
+#pageFlip demo
+command 'styledLabel demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/styledLabel.js")
+    input << "\n"
+  end
+end
+
+#urban airship demo
+command 'urban airship demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/urban.js")
+    input << "\n"
+  end
+end
+
 
 
 
