@@ -30,4 +30,4 @@ var uiPaint = (function() {
 })(); //end uiPaint
 Ti.UI.currentWindow.add( uiPaint.factoryView({}) );
 //uiPaint.factoryWindow({}).addChild( uiPaint.factoryView({}) ).open({modal:true});
-  
+//exports = uiTemplate  

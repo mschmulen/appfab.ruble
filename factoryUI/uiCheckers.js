@@ -21,4 +21,4 @@ var uiCheckers = (function() {
 })(); //end uiCheckers
 //Ti.UI.currentWindow.add( uiCheckers.factoryView({}) );
 //uiCheckers.factoryWindow({}).addChild( uiCheckers.factoryView({}) ).open({modal:true});
-
+//exports = uiChess

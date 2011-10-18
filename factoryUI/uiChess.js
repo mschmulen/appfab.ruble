@@ -92,3 +92,4 @@ var uiChess = (function() {
 Ti.UI.currentWindow.add( uiChess.factoryView({}) );
 //uiChess.factoryWindow({}).open({modal:true});
 //uiChess.factoryWindow({}).open({fullscreen:true});
+//exports = uiChess

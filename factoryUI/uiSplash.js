@@ -27,3 +27,4 @@ var uiSplash = (function() {
 Ti.UI.currentWindow.add( uiSplash.factoryView({}) ); 
 //uiSplash.factoryWindow({}).open({modal:true});
 //uiSplash.factoryWindow({}).open({fullscreen:true});
+//exports = uiTemplate

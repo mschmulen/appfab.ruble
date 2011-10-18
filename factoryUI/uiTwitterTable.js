@@ -114,3 +114,4 @@ var uiTwitterTable = (function() {
 Ti.UI.currentWindow.add( uiTwitterTable.factoryView({}) ); 
 //uiTwitterTable.factoryWindow({}).open({modal:true});
 //uiTwitterTable.factoryWindow({}).open({fullscreen:true});
+//exports = uiSplash

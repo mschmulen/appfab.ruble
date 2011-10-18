@@ -20,3 +20,4 @@ var uiTemplate = (function() {
 Ti.UI.currentWindow.add( uiTemplate.factoryView({}) ); 
 //uiTemplate.factoryWindow({}).open({modal:true});
 //uiTemplate.factoryWindow({}).open({fullscreen:true});  
+//exports = uiTemplate

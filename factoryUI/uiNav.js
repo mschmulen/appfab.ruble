@@ -77,4 +77,5 @@ var uiNav = (function() {
   return API;
 })(); //end uiNav
 uiNav.factoryNav({}).open();
+//exports = uiTemplate
 

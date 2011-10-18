@@ -1,8 +1,3 @@
-
-
-
-
-
 var uiMap = (function() {
   var API = { }; 
   
@@ -306,3 +301,4 @@ var uiMap = (function() {
 Ti.UI.currentWindow.add( uiMap.factoryView({}) ); 
 //uiMap.factoryWindow({}).open({modal:true});
 //uiMap.factoryWindow({}).open({fullscreen:true});
+//exports = uiTemplate

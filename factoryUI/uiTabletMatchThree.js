@@ -321,4 +321,5 @@ var uiMatchThree = (function() {
 })(); //end uiMatchThree
 Ti.UI.currentWindow.add( uiMatchThree.factoryView({}) );
 //uiMatchThree.factoryWindow({}).open({modal:true});
+//exports = uiTemplate
 

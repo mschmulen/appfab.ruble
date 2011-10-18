@@ -265,6 +265,6 @@ var uiMap = (function() {
 })(); //end uiMap
 //Ti.UI.currentWindow.add( uiMap.factoryView({}) ); 
 //uiMap.factoryWindow({}).addChild( uiMap.factoryView({}) ).open({modal:true}); 
-  
+//exports = uiTemplate
  
 

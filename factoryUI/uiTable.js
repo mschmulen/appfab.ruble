@@ -48,6 +48,7 @@ var uiTable = (function() {
 Ti.UI.currentWindow.add( uiTable.factoryView({}) );
 //uiTable.factoryWindow({}).open({modal:true});
 //uiTable.factoryWindow({}).open({fullscreen:true});
+//exports = uiSplash
   
 
 
