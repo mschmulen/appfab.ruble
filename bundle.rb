@@ -87,8 +87,17 @@ command 'Ti WinX TabX' do |cmd|
     input << "var win"+className+" = Titanium.UI.createWindow({ title:'"+className+"',  backgroundColor:'#fff', url:'"+className+".js' }); \n"
     input << "var tab"+className+" = Titanium.UI.createTab({ icon:'KS_nav_views.png', title:'"+className+"', window:win"+className+" });  \n"
     input << "tabGroup.addTab(tab"+className+");\n"
+    
+    CONSOLE.puts "#{context.project.to_dir.path}\n";
+      File.open("#{context.project.to_dir.path}"+File::SEPARATOR+"Resources"+File::SEPARATOR+className+".js", 'w') do |f|
+        #f.write "//APPFAB"
+    end
+    
+    input
+    
   end
 end
+
 
 #uiTemplate
 command 'uiTemplate' do |cmd|
@@ -151,10 +160,10 @@ end
 
 
 # ********************************************************
-# COMMAND+2  MACROS that wrap the currently selected text
+# COMMAND+2  MACROS that create top level navigation metaphor
 # ********************************************************
 
-command 'Ti WinX TabX' do |cmd|
+command 'TabGroup' do |cmd|
   cmd.key_binding = "Control+2"
   cmd.key_binding.mac = "Command+2"
   
@@ -165,28 +174,17 @@ command 'Ti WinX TabX' do |cmd|
     className = STDIN.read
     input = STDIN.read
     
-    input << "var win"+className+" = Titanium.UI.createWindow({   \n"
-    input << "  title:'"+className+"', \n"
-    input << "  url:'"+className+".js', \n"
-    input << "  backgroundColor:'#fff'  \n"
-    input << "}); \n"
-    
-    input << "var tab"+className+" = Titanium.UI.createTab({   \n"
-    input << "  icon:'KS_nav_views.png',  \n"
-    input << "  title:'"+className+"', \n"
-    input << "  window:win"+className+" \n"
-    input << "});  \n"
-    input << "\n"
-    input << "tabGroup.addTab(tab"+className+");\n"
+    input << "Titanium.UI.setBackgroundColor('#000'); \n"
+    input << "var tabGroup = Titanium.UI.createTabGroup(); \n"
+    input << " \n"
+    input << " \n"
+    input << "tabGroup.open(); \n"
   end
 end
 
-#uiTemplate
-command 'uiTemplate' do |cmd|
-  #cmd.scope = '*.js'
+command 'Dashboard' do |cmd|
   cmd.key_binding = "Control+2"
   cmd.key_binding.mac = "Command+2"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
   
   cmd.output = :insert_as_snippet
   cmd.input = :selection, :line
@@ -195,67 +193,26 @@ command 'uiTemplate' do |cmd|
     className = STDIN.read
     input = STDIN.read
     
-    input << "var ui" + className + " = (function() {\n"
-    input << "  \n"
-    input << "  var API = { }; \n"
-    input << "  \n"
-    input << "  var myPrivateVar ='private'; \n"
-    input << "  function myPrivateFunction(){  };\n "
-    input << "  \n"
-    input << "  API.myPublicVar = 'hello' \n"
-    input << "  \n"
-    input << "  API.factoryView = function(opts){ \n"
-    input << "    topView = Ti.UI.createView({});\n"
-    input << "    \n"
-    input << "    return topView; \n"
-    input << "  };\n"
-    input << "  \n"    
-    input << "  API.factoryWindow = function(opts){ \n"
-    input << "     win = Ti.UI.createWindow({title:'ui"+className+"'}); \n"
-    input << "     win.addChild( factoryView( options ) ); \n"
-    input << "     return win; \n"
-    input << "  };\n"
-    input << "  \n"
-    input << "  return API;\n"
-    input << "})(); //end ui" + className
-    input << "  \n"
-    input << "Ti.UI.currentWindow.add( ui"+className+".factoryView({}) ); \n"
-    input << "//ui"+className+".factoryWindow({}).open({modal:true})\n"
-    input << "//ui"+className+".factoryWindow({}).open({fullscreen:true})\n"
-    input << "  \n"
+    input << "Titanium.UI.setBackgroundColor('#000'); \n"
+    input << "var tabGroup = Titanium.UI.createTabGroup(); \n"
+    input << " \n"
+    input << " \n"
+    input << "tabGroup.open(); \n"
   end
 end
 
-# X_WIN X_TAB X_.js
-command 'file.js MACRO WinVAR + TabVAR' do |cmd|
-  #cmd.scope = '*.js'
+command 'uiNav' do |cmd|
   cmd.key_binding = "Control+2"
   cmd.key_binding.mac = "Command+2"
-  #cmd.key_binding = "M1+M3+Q C" # Multiple key stroke key binding
   
   cmd.output = :insert_as_snippet
   cmd.input = :selection, :line
   cmd.invoke do |context|
     
-    className = STDIN.read
     input = STDIN.read
-    
-    input << "var win"+className+" = Titanium.UI.createWindow({   \n"
-    input << "  title:'"+className+"', \n"
-    input << "  url:'"+className+".js', \n"
-    input << "  backgroundColor:'#fff'  \n"
-    input << "}); \n"
-    
-    input << "var tab"+className+" = Titanium.UI.createTab({   \n"
-    input << "  icon:'KS_nav_views.png',  \n"
-    input << "  title:'"+className+"', \n"
-    input << "  window:win"+className+" \n"
-    input << "});  \n"
     input << "\n"
-    input << "tabGroup.addTab(tab"+className+");\n"
-    
-    #add the file to the Resources folder className+'.js'
-    
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiNav.js")
+    input << "\n"
   end
 end
 
@@ -263,6 +220,22 @@ end
 # ********************************************************
 # COMMAND+3 UI Factories
 # ********************************************************
+
+command 'uiLogin' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiLogin.js")
+    input << "\n"
+  end
+end
 
 command 'uiTable' do |cmd|
   #cmd.scope = '*.js'
@@ -326,6 +299,22 @@ command 'uiTwitterTable' do |cmd|
     input = STDIN.read
     input << "\n"
     input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiTwitterTable.js")
+    input << "\n"
+  end
+end
+
+
+command 'uiVideoTable' do |cmd|
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiVideoTable.js")
     input << "\n"
   end
 end
@@ -844,6 +833,14 @@ template "factory uiTwitter" do |t|
   end
 end
 
+template "factory uiVideoTable" do |t|
+  t.filetype = "*.js"
+  t.invoke do |context|
+    ENV['TM_DATE'] = Time.now.strftime("%Y-%m-%d")
+    raw_contents = IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiVideoTable.js")
+    raw_contents.gsub(/\$\{([Creating a new template^}]*)\}/) {|match| ENV[match[2..-2]] }
+  end
+end
 
 # MODEL TEMPLATES
 # template "factory modelTwitter" do |t|
