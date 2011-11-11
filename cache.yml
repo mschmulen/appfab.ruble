@@ -44,7 +44,22 @@ children:
 - !!com.aptana.scripting.model.CommandElement
   async: false
   customProperties: null
-  displayName: js encapsulate
+  displayName: gist POST
+  input: [selection]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+1]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+1]
+  outputPath: null
+  outputType: output_to_console
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: Ti WinX TabX X.js
   input: [selection, line]
   inputPath: null
   keyBindingMap:
@@ -59,12 +74,12 @@ children:
 - !!com.aptana.scripting.model.CommandElement
   async: false
   customProperties: null
-  displayName: MACRO WinVAR + TabVAR
+  displayName: uiTemplate
   input: [selection, line]
   inputPath: null
   keyBindingMap:
-    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+3]
-    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+3]
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+1]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+1]
   outputPath: null
   outputType: insert_as_snippet
   path: bundle.rb
@@ -74,12 +89,12 @@ children:
 - !!com.aptana.scripting.model.CommandElement
   async: false
   customProperties: null
-  displayName: MACRO uiVAR
+  displayName: APP.AssetPath
   input: [selection, line]
   inputPath: null
   keyBindingMap:
-    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+3]
-    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+3]
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+1]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+1]
   outputPath: null
   outputType: insert_as_snippet
   path: bundle.rb
@@ -89,12 +104,87 @@ children:
 - !!com.aptana.scripting.model.CommandElement
   async: false
   customProperties: null
-  displayName: MACRO factory factoryWindowEmpty
+  displayName: TabGroup
   input: [selection, line]
   inputPath: null
   keyBindingMap:
     !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+2]
     !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+2]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: Dashboard
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+2]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+2]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: uiNav
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+2]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+2]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: uiWebView
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+3]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+3]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: uiImageTransformScale
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+3]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+3]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: uiLogin
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+3]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+3]
   outputPath: null
   outputType: insert_as_snippet
   path: bundle.rb
@@ -149,7 +239,22 @@ children:
 - !!com.aptana.scripting.model.CommandElement
   async: false
   customProperties: null
-  displayName: uiTwitter
+  displayName: uiTwitterTable
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+3]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+3]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: uiVideoTable
   input: [selection, line]
   inputPath: null
   keyBindingMap:
@@ -179,7 +284,37 @@ children:
 - !!com.aptana.scripting.model.CommandElement
   async: false
   customProperties: null
+  displayName: uiNav
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+3]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+3]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
   displayName: uiTemplate
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+3]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+3]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: requireTemplate
   input: [selection, line]
   inputPath: null
   keyBindingMap:
@@ -202,6 +337,36 @@ children:
     !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+4]
   outputPath: null
   outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: OPEN THIS FILE
+  input: [none]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+9]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+9]
+  outputPath: null
+  outputType: discard
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: ls
+  input: []
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+9]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+9]
+  outputPath: null
+  outputType: output_to_console
   path: bundle.rb
   runType: current_thread
   scope: null
@@ -314,6 +479,81 @@ children:
 - !!com.aptana.scripting.model.CommandElement
   async: false
   customProperties: null
+  displayName: pageflip demo
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+=]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+=]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: barcode demo
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+=]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+=]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: sms demo
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+=]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+=]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: styledLabel demo
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+=]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+=]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
+  displayName: urban airship demo
+  input: [selection, line]
+  inputPath: null
+  keyBindingMap:
+    !!com.aptana.scripting.model.Platform 'ALL': [CONTROL+=]
+    !!com.aptana.scripting.model.Platform 'MAC': [COMMAND+=]
+  outputPath: null
+  outputType: insert_as_snippet
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.CommandElement
+  async: false
+  customProperties: null
   displayName: open in browser
   input: [selection]
   inputPath: null
@@ -342,7 +582,7 @@ children:
   scope: null
   workingDirectoryType: UNDEFINED
 - !!com.aptana.scripting.model.ProjectTemplateElement {customProperties: null, description: Remote template. Requires network access.,
-  displayName: Tab fab github, location: 'git://github.com/mschmulen/tiTemplateTab.git',
+  displayName: fab Tab github, location: 'git://github.com/mschmulen/tiTemplateTab.git',
   path: bundle.rb, scope: null, type: TITANIUM_MOBILE}
 - !!com.aptana.scripting.model.TemplateElement
   async: false
@@ -417,7 +657,7 @@ children:
 - !!com.aptana.scripting.model.TemplateElement
   async: false
   customProperties: null
-  displayName: factory modelTwitter
+  displayName: factory uiVideoTable
   filetype: '*.js'
   input: []
   inputPath: null
@@ -432,6 +672,104 @@ children:
   async: false
   customProperties: null
   displayName: factory modelSQLITE
+  filetype: '*.js'
+  input: []
+  inputPath: null
+  keyBindingMap: null
+  outputPath: null
+  outputType: discard
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.TemplateElement
+  async: false
+  customProperties: null
+  displayName: factory uiCharts
+  filetype: '*.js'
+  input: []
+  inputPath: null
+  keyBindingMap: null
+  outputPath: null
+  outputType: discard
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.TemplateElement
+  async: false
+  customProperties: null
+  displayName: factory uiGameKit
+  filetype: '*.js'
+  input: []
+  inputPath: null
+  keyBindingMap: null
+  outputPath: null
+  outputType: discard
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.TemplateElement
+  async: false
+  customProperties: null
+  displayName: factory Gears
+  filetype: '*.js'
+  input: []
+  inputPath: null
+  keyBindingMap: null
+  outputPath: null
+  outputType: discard
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.TemplateElement
+  async: false
+  customProperties: null
+  displayName: factory uiOpengl
+  filetype: '*.js'
+  input: []
+  inputPath: null
+  keyBindingMap: null
+  outputPath: null
+  outputType: discard
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.TemplateElement
+  async: false
+  customProperties: null
+  displayName: factory uiPaint
+  filetype: '*.js'
+  input: []
+  inputPath: null
+  keyBindingMap: null
+  outputPath: null
+  outputType: discard
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.TemplateElement
+  async: false
+  customProperties: null
+  displayName: factory uiQuickLook
+  filetype: '*.js'
+  input: []
+  inputPath: null
+  keyBindingMap: null
+  outputPath: null
+  outputType: discard
+  path: bundle.rb
+  runType: current_thread
+  scope: null
+  workingDirectoryType: UNDEFINED
+- !!com.aptana.scripting.model.TemplateElement
+  async: false
+  customProperties: null
+  displayName: factory uiStacker
   filetype: '*.js'
   input: []
   inputPath: null
