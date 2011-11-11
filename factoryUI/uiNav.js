@@ -5,7 +5,7 @@ var uiNav = (function() {
   
   var API = { };
   
-  API.factoryNav = function(opts){ 
+  API.factoryNav = function(opts){
 	
 	// Flags, is this for Android or iPhone?
 	var iPhone = false;

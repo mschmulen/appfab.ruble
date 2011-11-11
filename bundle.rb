@@ -73,7 +73,7 @@ command 'gist POST' do |cmd|
   end
 end
 
-command 'Ti WinX TabX' do |cmd|
+command 'Ti WinX TabX X.js' do |cmd|
   cmd.key_binding = "Control+1"
   cmd.key_binding.mac = "Command+1"
   
@@ -129,7 +129,7 @@ command 'uiTemplate' do |cmd|
     input << "  \n"    
     input << "  API.factoryWindow = function(opts){ \n"
     input << "     win = Ti.UI.createWindow({title:'ui"+className+"'}); \n"
-    input << "     win.addChild( factoryView( options ) ); \n"
+    input << "     win.add( factoryView( options ) ); \n"
     input << "     return win; \n"
     input << "  };\n"
     input << "  \n"
@@ -220,6 +220,38 @@ end
 # ********************************************************
 # COMMAND+3 UI Factories
 # ********************************************************
+
+command 'uiWebView' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiWebView.js")
+    input << "\n"
+  end
+end
+
+command 'uiImageTransformScale' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+3"
+  cmd.key_binding.mac = "Command+3"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryUI/uiImageTransformScale.js")
+    input << "\n"
+  end
+end
 
 command 'uiLogin' do |cmd|
   #cmd.scope = '*.js'
