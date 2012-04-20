@@ -1,4 +1,5 @@
 
+/*
 var uiToast = (function() {
   
   var API = { }; 
@@ -24,10 +25,10 @@ var uiToast = (function() {
 	var min = 15;
 	var now = new Date().getTime();
 	
-	Ti.API.info( "now:" + now );
-    var alarmTime = new Date( now.getFullYear() , now.getMonth(), now.getDay(), hour, min, 0, 0 );
- 	var alarmTimeMS = alarmTime.getTime();
-	Ti.API.info( "alarmTime:" + alarmTime );
+	//Ti.API.info( "now:" + now );
+    //var alarmTime = new Date( now.getFullYear() , now.getMonth(), now.getDay(), hour, min, 0, 0 );
+ 	//var alarmTimeMS = alarmTime.getTime();
+	//Ti.API.info( "alarmTime:" + alarmTime );
 
     var deltaMS = alarmTime - now;
  	
@@ -47,4 +48,5 @@ var uiToast = (function() {
 Ti.UI.currentWindow.add( uiToast.factoryView({}) ); 
 //uiToast.factoryWindow({}).open({modal:true});
 //uiToast.factoryWindow({}).open({fullscreen:true});
+*/
 

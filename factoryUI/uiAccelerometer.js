@@ -1,10 +1,10 @@
 
 //gist reference https://gist.github.com/980774
 var uiAccelerometer = (function() {
-  
-  var API = { }; 
-   
-  API.factoryView = function(opts){
+  	
+	var API = { }; 
+   	
+  	API.factoryView = function(opts){
   	
     var topView = Ti.UI.createView({});
 	
