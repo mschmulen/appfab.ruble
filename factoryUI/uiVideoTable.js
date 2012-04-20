@@ -1,99 +1,97 @@
 
-
-//Titanium.include('../mvc/model.js' );
-
-//this is the main app window
-var win = Titanium.UI.currentWindow;
-//this creates a spinning widget we can display while the user waits
-
-var tableview;
-//and the data array for the table
-
-var data = [];
-//the window and webview for displaying youtube player (iOS only)
-
-var webModal;
-
-var webModalView;
-//stores the current link being displayed in the web view
-
-var currentLink;
-//this is the network request object
-
-var xhr = Ti.Network.createHTTPClient();
-
-function showHTMLContent(wTitle, wUrl, wHTMLContent)
-{
-	//store the link for later use
-	currentLink = wUrl;
-
-	//create the window to hold the web view
-	webModal = Ti.UI.createWindow({});
-	
-	//set the orientation modes for basically any which way
-	webModal.orientationModes = [
-		Titanium.UI.PORTRAIT,
-		Titanium.UI.LANDSCAPE_LEFT,
-		Titanium.UI.LANDSCAPE_RIGHT
-		];
-
-	//create the webview aka the embedded web browser (webkit/safari)
-	webModalView = Ti.UI.createWebView();
-	webModalView.scalesPageToFit = true;
-
-	//add the web video to the modal window
-	webModal.add(webModalView);
-	
-	//set the title of the window
-	webModal.title = wTitle;
-	
-	//if you are using a tab UI in the app, this will open the window
-	Titanium.UI.currentTab.open(webModal,{animated:true});
-	
-	//set the HTML to display to the markup passed into the function
-	webModalView.html = wHTMLContent;
-	
-}; //end showHTMLContent
-
-function playYouTube (vtitle, vguid)
-{
-	Ti.API.info( "Youtube vGUID " + vguid + " vTitle " + vtitle );
-	if (Titanium.Platform.name == 'iPhone OS')
-	{
+var uiVideo = (function() {
+  	
+  	var API = { }; 
+  	
+  	API.name = "Video";
+	API.icon = "/KS_nav_ui.png";
+	API.parentNav = null;
+	API.win = null;
+  	
+ 	API.factoryView = function(opts){ 
+    	topView = Ti.UI.createView({});
+    	
+    	var tableview; //and the data array for the table
+		var data = []; //the window and webview for displaying youtube player (iOS only)
+		var webModal;
+		var webModalView; //stores the current link being displayed in the web view
+		var currentLink; //this is the network request object
+		var xhr = Ti.Network.createHTTPClient();
 		
-		var ytVideoSrc = 'http://www.youtube.com/v/' + vguid;
-		var thumbPlayer = '<html><head><style type="text/css"> body { background-color: black;color: white;} </style></head><body style="margin:0"><br/><br/><center><embed id="yt" src="' + ytVideoSrc + '" type="application/x-shockwave-flash" width="100%" height="75%"></embed></center></body></html>';
-		showHTMLContent(vtitle,'http://www.youtube.com/watch?v=' + vguid,thumbPlayer);
-	}
-	else //on android
+		function showHTMLContent(wTitle, wUrl, wHTMLContent)
+		{
+			//store the link for later use
+			currentLink = wUrl;
+			
+			//create the window to hold the web view
+			webModal = Ti.UI.createWindow({});
+			
+			//set the orientation modes for basically any which way
+			webModal.orientationModes = [
+				Titanium.UI.PORTRAIT,
+				Titanium.UI.LANDSCAPE_LEFT,
+				Titanium.UI.LANDSCAPE_RIGHT
+				];
+			
+			//create the webview aka the embedded web browser (webkit/safari)
+			webModalView = Ti.UI.createWebView();
+			webModalView.scalesPageToFit = true;
+		
+			//add the web video to the modal window
+			webModal.add(webModalView);
+			
+			//set the title of the window
+			webModal.title = wTitle;
+			
+			//if you are using a tab UI in the app, this will open the window
+			Titanium.UI.currentTab.open(webModal,{animated:true});
+			
+			//set the HTML to display to the markup passed into the function
+			webModalView.html = wHTMLContent;
+			
+		}; //end showHTMLContent
+		
+		
+		function playYouTube (vtitle, vguid)
+		{
+			Ti.API.info( "Youtube vGUID " + vguid + " vTitle " + vtitle );
+			if (Titanium.Platform.name == 'iPhone OS')
+			{
+				
+				var ytVideoSrc = 'http://www.youtube.com/v/' + vguid;
+				var thumbPlayer = '<html><head><style type="text/css"> body { background-color: black;color: white;} </style></head><body style="margin:0"><br/><br/><center><embed id="yt" src="' + ytVideoSrc + '" type="application/x-shockwave-flash" width="100%" height="75%"></embed></center></body></html>';
+				showHTMLContent(vtitle,'http://www.youtube.com/watch?v=' + vguid,thumbPlayer);
+			}
+			else //on android
+			{
+				//this call to openURL hands off the link to the operating
+				//system, and starts any player that supports youtube.com
+				Titanium.Platform.openURL('http://www.youtube.com/watch?v=' + vguid);
+			}//end on android
+			
+		}//end playYouTube
+		
+		function doYouTubeSearch (channel, searchTerm)
+		{
+	
+			//first show a “loading” spinning indicator to the user
+			//toolActInd.message = 'Loading videos…';
+			
+			//win.setToolbar([toolActInd],{animated:true});
+			
+			//toolActInd.show();
+			//create the YouTube API search URL from the function parameters
+			var searchUrl = 'http://gdata.youtube.com/feeds/api/videos?alt=rss&author=' + escape(channel) + '&q=' + escape(searchTerm) + "&orderby=published&max-results=25&v=2";
+			
+			//use the xhr http client object to do an HTTP GET request to the URL
+			xhr.open("GET",searchUrl);
+			xhr.send();
+			
+		}//end doYouTubeSearch
+		
+		
+	xhr.onload = function()
 	{
-		//this call to openURL hands off the link to the operating
-		//system, and starts any player that supports youtube.com
-		Titanium.Platform.openURL('http://www.youtube.com/watch?v=' + vguid);
-	}//end on android
-	
-}//end playYouTube
-
-function doYouTubeSearch (channel, searchTerm)
-{
-	
-	//first show a “loading” spinning indicator to the user
-	//toolActInd.message = 'Loading videos…';
-	
-	//win.setToolbar([toolActInd],{animated:true});
-	
-	//toolActInd.show();
-	//create the YouTube API search URL from the function parameters
-	var searchUrl = 'http://gdata.youtube.com/feeds/api/videos?alt=rss&author=' + escape(channel) + '&q=' + escape(searchTerm) + "&orderby=published&max-results=25&v=2";
-	
-	//use the xhr http client object to do an HTTP GET request to the URL
-	xhr.open("GET",searchUrl);
-	xhr.send();
-	
-}//end doYouTubeSearch
-
-xhr.onload = function()
-{
 	try
 	{
 		//the doc object holds the response structure
@@ -210,7 +208,7 @@ xhr.onload = function()
 			});
 			
 			//add the table to the current window for display
-			Titanium.UI.currentWindow.add(tableview);
+			topView.add(tableview);
 			
 			//add a ‘click’ listener so that when someone taps on a row
 			//the video will be played using the function we defined earlier
@@ -229,7 +227,7 @@ xhr.onload = function()
 	
 	//hide the spinning ‘loading’ widget
 	toolActInd.hide();
-	win.setToolbar(null,{animated:true});
+	//win.setToolbar(null,{animated:true});
 };//end
 
 
@@ -244,9 +242,26 @@ else
 {
 	//Ti.API.info("doYouTUbeSearch(" + win.YoutubeSearchChannel + "," + win.YoutubeSearch+")" );
 	//doYouTubeSearch(win.YoutubeSearchChannel,win.YoutubeSearch);	
-	doYouTubeSearch("Crossfit","");
+	doYouTubeSearch("appcelerator","");
 }//else connected so do the search
 
-//exports = uiSplash
 
+    	
+    	return topView;
+  	};//end factoryView
+  	
+  	API.factoryWindow = function(opts){
+ 		API.win = Ti.UI.createWindow(UTILS.combine(STYLE.Win, {
+			title : API.name
+		}));
+		API.win.add(API.factoryView(opts));
+		return API.win;
+  	};//end factoryWindow
+  	
+  	return API;
+})(); //end uiVideo
+Ti.UI.currentWindow.add( uiVideo.factoryView({}) ); 
+//uiVideo.factoryWindow({}).open({modal:true});
+//uiVideo.factoryWindow({}).open({fullscreen:true});
+//module.exports = uiVideo
 

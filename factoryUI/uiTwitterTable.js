@@ -1,9 +1,15 @@
 
+
 var uiTwitterTable = (function() {
+
   	
-  	var API = { };
+  	var API = { }; 
   	
-  	API.twitterName = 'appcelerator';
+  	API.name = "TwitterTable";
+	API.icon = "/KS_nav_ui.png";
+	API.parentNav = null;
+	API.win = null;
+	
   	
   	API.factoryView = function(opts){
   		
@@ -32,11 +38,11 @@ var uiTwitterTable = (function() {
 						//var created_at = prettyDate(strtotime(tweets[c].created_at));
 						var bgcolor = (c % 2) == 0 ? '#fff' : '#eee';
 		
-						var row = Ti.UI.createTableViewRow({hasChild:true,height:'auto',backgroundColor:bgcolor});
+						var row = Ti.UI.createTableViewRow({hasChild:true,height:'fill',backgroundColor:bgcolor});
 		
 						// Create a vertical layout view to hold all the info labels and images for each tweet
 						var post_view = Ti.UI.createView({
-							height:'auto',
+							height:'fill',
 							layout:'vertical',
 							left:5,
 							top:5,
@@ -73,7 +79,7 @@ var uiTwitterTable = (function() {
 							left:54,
 							top:0,
 							bottom:2,
-							height:'auto',
+							height:'fill',
 							width:236,
 							textAlign:'left',
 							font:{fontSize:14}
@@ -103,15 +109,17 @@ var uiTwitterTable = (function() {
     	return topView;
  	};//end factoryView
   	
-  	API.factoryWindow = function(options){
-     	var win = Ti.UI.createWindow({title:'uiTwitterTable'});
-     	win.add( API.factoryView( options ) );
-     	return win; 
-  	};
+  	API.factoryWindow = function(opts){
+ 		API.win = Ti.UI.createWindow(UTILS.combine(STYLE.Win, {
+			title : API.name
+		}));
+		API.win.add(API.factoryView(opts));
+		return API.win;
+  	};//end factoryWindow
 	
   	return API;
 })(); //end uiTwitterTable
 Ti.UI.currentWindow.add( uiTwitterTable.factoryView({}) ); 
 //uiTwitterTable.factoryWindow({}).open({modal:true});
 //uiTwitterTable.factoryWindow({}).open({fullscreen:true});
-//exports = uiSplash
+//module.exports = uiTwitterTable
