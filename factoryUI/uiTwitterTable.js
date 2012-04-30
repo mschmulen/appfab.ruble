@@ -1,8 +1,7 @@
 
 
 var uiTwitterTable = (function() {
-
-  	
+	
   	var API = { }; 
   	
   	API.name = "TwitterTable";
