@@ -36,14 +36,6 @@ snippet "function" do |s|
   s.expansion = "$1 = function(opts){ \n\n };"
 end
 
-
-# ********************************************************
-# Commands: 
-# ********************************************************
-
-
-
-
 # ********************************************************
 # File templates: Titanium Mobile Javascript Templates
 # ********************************************************
@@ -194,16 +186,24 @@ end
 project_template "appFab Template.ACSAppStore" do |t|
   t.type = :titanium_mobile
   t.location = "git://github.com/mschmulen/Template.ACSAppStore.git"
-  t.description = " PO Approval template "
+  t.description = " ACS App store template "
   t.icon = "http://preview.appcelerator.com/dashboard/img/icons/icon_geo.png"
 end
 
 project_template "appFab Template.CustomerBilling" do |t|
   t.type = :titanium_mobile
   t.location = "git://github.com/mschmulen/Tempate.CustomerBilling.git"
+  t.description = " Customer Billing template "
+  t.icon = "http://preview.appcelerator.com/dashboard/img/icons/icon_geo.png"
+end
+
+project_template "appFab Template.EnterpriseApproval" do |t|
+  t.type = :titanium_mobile
+  t.location = "git://github.com/mschmulen/Tempate.EnterpriseApproval.git"
   t.description = " PO Approval template "
   t.icon = "http://preview.appcelerator.com/dashboard/img/icons/icon_geo.png"
 end
+
 
 #project_template "Tab fab local" do |t|
 #  t.type = :titanium_mobile
