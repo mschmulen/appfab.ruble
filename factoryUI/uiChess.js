@@ -1,12 +1,13 @@
 
+
 //https://gist.github.com/980224
-var uiChess = (function() {
+function uiChess() {
   	
-  	var API = { }; 
+  	var win;
     
-  	API.factoryView = function( options )
+  	function factoryView ( options )
 	{
-		topView = Ti.UI.createView({layout:'horizontal', top:20, width: 320, height:480 });
+		var topView = Ti.UI.createView({layout:'horizontal', top:20, width: 320, height:480 });
 		
 		// Simple and tiny chess for Appcelerator
 		// Javascript chess engine (c)2011 Oscar Toledo G.
@@ -80,16 +81,13 @@ var uiChess = (function() {
 		return topView;
 	}//end factoryView
 	
-	API.factoryWindow = function( options )
-	{
-		win = Ti.UI.createWindow({title:'chess'});
-		win.add( API.factoryView( options ) );
-		return win;
-	}//end factoryWindow
+	win = Ti.UI.createWindow({title:'chess'});
+	win.add( factoryView() );
 	
-  return API;
-})(); //end uiChess
-Ti.UI.currentWindow.add( uiChess.factoryView({}) );
+    return win;
+}; //end uiChess
+//Ti.UI.currentWindow.add( uiChess.factoryView({}) );
 //uiChess.factoryWindow({}).open({modal:true});
 //uiChess.factoryWindow({}).open({fullscreen:true});
-//exports = uiChess
+module.exports = uiChess;
+
