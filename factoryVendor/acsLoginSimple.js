@@ -1,4 +1,5 @@
 
+
 var uiSplash = (function() {
   	
   	var API = {};
@@ -13,14 +14,14 @@ var uiSplash = (function() {
     	topView = Ti.UI.createView({});
     	
     	var imageView = Titanium.UI.createImageView({
-			image:'http://www.managementrewired.com/images/bookcover.jpg',
-			width: 150,
-			height: 350,
+			image:'http://codedog.net/wp-content/uploads/2011/09/appcelerator.png',
+			width:261,
+			height:178,
 			top:20
 		});
 		topView.add( imageView );
 		
-		/*
+		
 		var Cloud = require('ti.cloud');
 		Cloud.debug = true;
 		
@@ -67,8 +68,8 @@ var uiSplash = (function() {
 		
 		loginButton.addEventListener('click', function() {
 			Cloud.Users.login({
-	            login: 'matt.schmulen@gmail.com',
-	            password: 'dashboard'
+	            login: 'mschmulen@appcelerator.com',
+	            password: 'appcelerator'
 	        }, function (e) {
 	            if (e.success) {
 	                API.currentUser = e.users[0];
@@ -88,10 +89,10 @@ var uiSplash = (function() {
 		registerButton.addEventListener('click', function() {
 			
 		    var registerData = {
-				username: 'matt.schmulen@gmail.com',
-				email: 'matt.schmulen@gmail.com',
-				password: 'dashboard',
-				password_confirmation: 'dashboard'
+				username: 'mschmulen@appcelerator.com',
+				email: 'mschmulen@appcelerator.com',
+				password: 'appcelerator',
+				password_confirmation: 'appcelerator'
 			};//end registerData
       		
 	      	Cloud.Users.create(registerData, function (e) {
@@ -109,7 +110,6 @@ var uiSplash = (function() {
 	            	}//end else
 	        	});//end Users.create
 	     	});
-		*/
 		
     	return topView;
   	};//end factoryView

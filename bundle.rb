@@ -115,6 +115,7 @@ end
 
 
 #### MODULES
+
 template "factory uiCharts" do |t|
   t.filetype = "*.js"
   t.invoke do |context|

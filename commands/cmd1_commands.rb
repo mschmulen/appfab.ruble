@@ -31,6 +31,58 @@ command 'gist POST' do |cmd|
   end
 end
 
+command 'Ti WinX TabX Require UIWinX.js' do |cmd|
+  cmd.key_binding = "Control+1"
+  cmd.key_binding.mac = "Command+1"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    className = STDIN.read
+    input = STDIN.read
+    prefix = 'UIWin'
+    input << "var "+prefix+className+" = require('"+prefix+className+"'); \n"
+    input << "var win"+className+" = "+prefix+className+".factoryWindow({}); \n"
+    input << "var tab"+className+" = Titanium.UI.createTab({ title:'"+className+"',icon:'KS_nav_views.png', window:win"+className+" });  \n"
+    input << "win"+className+".parentNav = tab"+className+"; \n"
+    input << "tabGroup.addTab(tab"+className+");\n"
+    
+    CONSOLE.puts "#{context.project.to_dir.path}\n";
+      File.open("#{context.project.to_dir.path}"+File::SEPARATOR+"Resources"+File::SEPARATOR+prefix+className+".js", 'w') do |f|
+        #f.write "//APPFAB"
+    end
+    
+    input
+    
+  end
+end
+
+command 'Require X.js' do |cmd|
+  cmd.key_binding = "Control+1"
+  cmd.key_binding.mac = "Command+1"
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    className = STDIN.read
+    input = STDIN.read
+    input << "var "+className+" = require('"+className+"'); \n"
+    input << className+".init(); \n"
+    
+    CONSOLE.puts "#{context.project.to_dir.path}\n";
+      File.open("#{context.project.to_dir.path}"+File::SEPARATOR+"Resources"+File::SEPARATOR+className+".js", 'w') do |f|
+        #f.write "//APPFAB"
+    end
+    
+    input
+    
+  end
+end
+
+
+
 command 'Ti WinX TabX X.js' do |cmd|
   cmd.key_binding = "Control+1"
   cmd.key_binding.mac = "Command+1"

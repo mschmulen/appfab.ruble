@@ -1,0 +1,7 @@
+<Alloy>
+	<Tab id="TabMap" title="Map">
+		<Window title="Trinidad Zoo">
+			<View ns="Ti.Map" id="map" userLocation="true"/>
+		</Window>
+	</Tab>
+</Alloy>

@@ -1,0 +1,9 @@
+<Alloy>
+	<Tab id="animalTab" title="Animals">
+		<Window id="animalWindow"  title="Animals" class='container'>
+			<TableView id="table"/>
+			<!-- hidden and used later -->
+			<Button id="add" title="Add" top="-50dp"></Button>
+		</Window>
+	</Tab>
+</Alloy>

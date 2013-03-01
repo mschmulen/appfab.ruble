@@ -1,0 +1,124 @@
+".headerBadge" : {
+	top: -10,
+	width: 103,
+	height: 110,
+	layout: "vertical"
+},
+".badgeIcon" : {
+	top: 20,
+	width: 44,
+	height: 43,
+	touchEnabled: false
+},
+".badgeTitle" : {
+	top: 10,
+	width: Ti.UI.FILL,
+	height: 40,
+	textAlign: "center",
+	font: Alloy.Globals.fonts.LG_20
+},
+".syncText" : {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.FILL,
+	font: Alloy.Globals.fonts.DEFAULT_14_BOLD,
+	color: Alloy.Globals.colors.GRAY_DARK
+},
+".splitHeader" : {
+	width: Ti.UI.FILL,
+	height: 45,
+	backgroundImage: "",
+	backgroundRepeat: true
+},
+".weekNav" : {
+	width: 20,
+	height: 20
+},
+".splitTitle" : {
+	width: Ti.UI.FILL,
+	height: 20,
+	textAlign: "center",
+	font: Alloy.Globals.fonts.DEFAULT_18_BOLD,
+	color: Alloy.Globals.colors.CORK,
+	touchEnabled: false
+},
+"#header" : {
+	top: 0,
+	width: Ti.UI.FILL,
+	height: Alloy.Globals.SIZES.HEADER_HEIGHT
+},
+"#unplannedCall" : {
+	right: 20
+},
+"#ucIcon" : {
+	image: ""
+},
+"#sync" : {
+	top: 125,
+	right: 20,
+	width: Ti.UI.SIZE,
+	height: 30,
+	layout: "horizontal"
+},
+"#lastSync" : {
+	left: 10,
+	font: Alloy.Globals.fonts.DEFAULT_14,
+},
+"#content" : {
+	top: Alloy.Globals.SIZES.HEADER_HEIGHT,
+	width: Ti.UI.FILL,
+	bottom: Alloy.Globals.SIZES.TAB_BAR_HEIGHT,
+	backgroundColor: Alloy.Globals.colors.BACKGROUND,
+	layout: "horizontal",
+	stores: {
+		top: 0,
+		width: Ti.UI.FILL,
+		height: Ti.UI.SIZE,
+		layout: "horizontal"
+	}
+},
+"#masterView" : {
+	left: 0,
+	width: 299,
+	height: Ti.UI.FILL,
+	layout: "vertical"
+},
+"#back" : {
+	left: 5,
+	backgroundImage: "",
+	backgroundSelectedImage: ""
+},
+"#next" : {
+	right: 5,
+	backgroundImage: "",
+	backgroundSelectedImage: ""
+},
+"#week" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	separatorStyle: Ti.UI.iPhone.TableViewSeparatorStyle.NONE,
+	backgroundColor: Alloy.Globals.colors.BACKGROUND
+},
+"#detailView" : {
+	width: 724,
+	height: Ti.UI.FILL,
+	layout: "vertical"
+},
+"#map" : {
+	right: 30,
+	width: 40,
+	height: 25,
+	backgroundImage: "",
+	backgroundSelectedImage: ""
+},
+"#stores" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	contentWidth: "100%",
+	contentHeight: "auto"
+},
+"#storesWrapper" : {
+	top: 0,
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+	layout: "horizontal"
+}

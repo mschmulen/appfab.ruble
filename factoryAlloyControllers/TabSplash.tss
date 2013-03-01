@@ -1,0 +1,48 @@
+".container": {
+	backgroundColor: "white"
+},
+"Tab" : {
+	icon: 'KS_nav_ui.png',
+},
+"Window": {
+	title:"yack",
+	layout:'vertical',
+	barColor: '#6d0a0c',
+	backgroundColor: 'transparent',
+	backgroundImage: 'grain.png'
+},
+"Label": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "#fff",
+	font: {
+		fontSize: 20,
+		fontFamily: 'Helvetica Neue'
+	},
+	textAlign: 'center'
+},
+"#title": {
+	textAlign:'center',
+	top: "10dp",
+	color: "#fff",
+	font: {
+		fontWeight:'bold',
+		fontSize: "24dp"
+	}
+},
+"#thumbnail": {
+	backgroundColor:"transparent",
+	//left: "5dp",
+	//top:"5dp",
+	height: 256,
+	width:256
+},
+"#installButton": {
+	top: "2dp"
+},
+"#installCatButton": {
+	top: "2dp"
+}
+
+
+

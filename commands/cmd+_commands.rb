@@ -1,4 +1,5 @@
 
+
 #PayPal button
 command 'PayPal button' do |cmd|
   #cmd.scope = '*.js'
@@ -38,6 +39,59 @@ command 'PayPal button' do |cmd|
 
   end
 end
+
+# odata demo
+command 'odata demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiOData.js")
+    input << "\n"
+  end
+end
+
+# odata demo
+command 'odata simple demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiODataSimple.js")
+    input << "\n"
+  end
+end
+
+
+# odata demo
+command 'odata demo' do |cmd|
+  #cmd.scope = '*.js'
+  cmd.key_binding = "Control+="
+  cmd.key_binding.mac = "Command+="
+  
+  cmd.output = :insert_as_snippet
+  cmd.input = :selection, :line
+  cmd.invoke do |context|
+    
+    input = STDIN.read
+    input << "\n"
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiOData.js")
+    input << "\n"
+  end
+end
+
 
 # paint demo
 command 'paint demo' do |cmd|

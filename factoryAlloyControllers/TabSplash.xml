@@ -1,0 +1,9 @@
+<Alloy>
+	<Tab id="TabHome" title="Home">
+		<Window title="Trinidad Zoo">
+			<Label id="title">Trinidad Zoo Adventure</Label>
+			<ImageView id="thumbnail"></ImageView>
+			<Button id="installCatButton">Install Cat</Button>
+		</Window>
+	</Tab>
+</Alloy>

@@ -1,0 +1,35 @@
+<Alloy>
+	<Window id="window">
+		<View id="header">
+			<Require src="userInfo" />
+			<Button class="headerBadge" id="unplannedCall">
+				<ImageView class="badgeIcon" id="ucIcon" />
+				<Label class="badgeTitle" textid="unplanned_call_str" />
+			</Button>
+			<View id="sync">
+				<Label class="syncText" textid="last_sync_str" />
+				<Label id="lastSync" class="syncText" text="--/--/--" />
+			</View>
+		</View>
+		<View id="content">
+			<View id="masterView">
+				<View class="splitHeader">
+					<Button class="weekNav" id="back" />
+					<Label class="splitTitle" id="currentWeek" />
+					<Button class="weekNav" id="next" />
+				</View>
+				<TableView id="week" />
+			</View>
+			<View class="verticalLine" />
+			<View id="detailView">
+				<View class="splitHeader">
+					<Label class="splitTitle" id="quadTitle" />
+					<Button id="map" />
+				</View>
+				<ScrollView id="stores">
+					<View id="storesWrapper" />
+				</ScrollView>
+			</View>
+		</View>
+	</Window>
+</Alloy>

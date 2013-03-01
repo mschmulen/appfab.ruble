@@ -4,23 +4,23 @@ require 'ruble'
 
 
 # ********************************************************
-# COMMAND+4 MODEL Factories
+# COMMAND+4 Vendor Factories
 # ********************************************************
 
-command 'model SQLITE' do |cmd|
-  cmd.key_binding = "Control+4"
-  cmd.key_binding.mac = "Command+4"
-  
-  cmd.output = :insert_as_snippet
-  cmd.input = :selection, :line
-  cmd.invoke do |context|
-    
-    input = STDIN.read
-    input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModel/modelSQLITE.js")
-    input << "\n"
-  end
-end
+#command 'model SQLITE' do |cmd|
+#  cmd.key_binding = "Control+4"
+#  cmd.key_binding.mac = "Command+4"
+#
+#  cmd.output = :insert_as_snippet
+#  cmd.input = :selection, :line
+#  cmd.invoke do |context|
+#   
+#    input = STDIN.read
+#    input << "\n"
+#    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModel/modelSQLITE.js")
+#    input << "\n"
+#  end
+#end
 
 
 # ********************************************************
