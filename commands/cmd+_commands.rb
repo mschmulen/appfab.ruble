@@ -214,8 +214,8 @@ command 'pageflip demo' do |cmd|
   end
 end
 
-#barcode demo
-command 'barcode demo' do |cmd|
+#StrongLoop datamodel
+command 'strongloop datamodel.js' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+="
   cmd.key_binding.mac = "Command+="
@@ -226,13 +226,13 @@ command 'barcode demo' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uiBardcodeReader.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryStrongLoop/datamodel.js")
     input << "\n"
   end
 end
 
-#pageFlip demo
-command 'sms demo' do |cmd|
+#strongloop appWindowDetail.js
+command 'strongloop ApplicationWindowDetail.js' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+="
   cmd.key_binding.mac = "Command+="
@@ -243,14 +243,14 @@ command 'sms demo' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/uisms.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryStrongLoop/appWindowDetail.js")
     input << "\n"
   end
 end
 
 
-#pageFlip demo
-command 'styledLabel demo' do |cmd|
+#strongloop appwindow
+command 'strongloop ApplicationWindow.js' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+="
   cmd.key_binding.mac = "Command+="
@@ -261,13 +261,13 @@ command 'styledLabel demo' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/styledLabel.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryStrongLoop/appWindow.js")
     input << "\n"
   end
 end
 
-#urban airship demo
-command 'urban airship demo' do |cmd|
+#strongloop demo
+command 'strongloop LoopBack.js' do |cmd|
   #cmd.scope = '*.js'
   cmd.key_binding = "Control+="
   cmd.key_binding.mac = "Command+="
@@ -278,7 +278,7 @@ command 'urban airship demo' do |cmd|
     
     input = STDIN.read
     input << "\n"
-    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryModules/urban.js")
+    input << IO.read("#{File.dirname(ENV['TM_BUNDLE_SUPPORT'])}/factoryStrongLoop/loopback.js")
     input << "\n"
   end
 end
